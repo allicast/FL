@@ -9,7 +9,8 @@ public class PlayerMove : MonoBehaviour
     Rigidbody playerRb;
     Animator playerAnim;
 
-    public float playerSpeed = 0f;
+    public float playerSpeed;
+    public float runSpeed = 2f; // multiplicador para correr (ejemplo 2x)
 
     private Vector2 newDirection;
 
@@ -24,7 +25,11 @@ public class PlayerMove : MonoBehaviour
     public float minAngle = -45f;
     public float maxAngle = 45f;
     public float cameraSpeed = 500f;
-    public float cameraSpeed = 500f;
+
+    private bool isTurning = false;
+    private float turnSpeed = 720f;
+    private float targetAngle;
+    private float startAngle;
 
     void Start()
     {
@@ -34,17 +39,23 @@ public class PlayerMove : MonoBehaviour
 
         theCamera = Camera.main.transform;
     }
+
     void Update()
     {
         MoveLogic();
         CameraLogic();
         AnimLogic();
+        TurnLogic();
     }
 
     public void AnimLogic()
     {
         playerAnim.SetFloat("X", newDirection.x);
         playerAnim.SetFloat("Y", newDirection.y);
+
+        // Nuevo: Animación de correr con Shift
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        playerAnim.SetBool("isRunning", isRunning);
     }
 
     public void MoveLogic()
@@ -55,12 +66,47 @@ public class PlayerMove : MonoBehaviour
 
         newDirection = new Vector2(moveX, moveZ);
 
-        Vector3 side = playerSpeed * moveX * theTime * playerTr.right;
-        Vector3 forward = playerSpeed * moveZ * theTime * playerTr.forward;
+        // Checar si se está corriendo (Shift)
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+        // Aplicar multiplicador si se corre
+        float currentSpeed = isRunning ? playerSpeed * runSpeed : playerSpeed;
+
+        Vector3 side = currentSpeed * moveX * theTime * playerTr.right;
+        Vector3 forward = Vector3.zero;
+
+        if (!isTurning)
+        {
+            if (Input.GetKey(KeyCode.S))
+            {
+                isTurning = true;
+                startAngle = playerTr.eulerAngles.y;
+                targetAngle = startAngle + 180f;
+            }
+            else
+            {
+                forward = currentSpeed * moveZ * theTime * playerTr.forward;
+            }
+        }
 
         Vector3 endDirection = side + forward;
-
         playerRb.velocity = endDirection;
+    }
+
+    void TurnLogic()
+    {
+        if (!isTurning) return;
+
+        float currentY = playerTr.eulerAngles.y;
+
+        float newY = Mathf.MoveTowardsAngle(currentY, targetAngle, turnSpeed * Time.deltaTime);
+
+        playerTr.eulerAngles = new Vector3(playerTr.eulerAngles.x, newY, playerTr.eulerAngles.z);
+
+        if (Mathf.Approximately(newY, targetAngle))
+        {
+            isTurning = false;
+        }
     }
 
     public void CameraLogic()

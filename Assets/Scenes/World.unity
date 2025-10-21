@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 1507170192}
   - component: {fileID: 1507170191}
   - component: {fileID: 1507170190}
-  - component: {fileID: 1507170189}
+  - component: {fileID: 1507170193}
   m_Layer: 0
   m_Name: PlayerFaver
   m_TagString: Untagged
@@ -454,25 +454,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1507170189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507170188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 203d64ff9f1636f488124cc04d12bb46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSpeed: 700
-  cameraAxis: {fileID: 2079463480}
-  cameraTrack: {fileID: 555523589}
-  camRotSpeed: 500
-  minAngle: -45
-  maxAngle: 45
-  cameraSpeed: 500
 --- !u!136 &1507170190
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -540,6 +521,25 @@ Transform:
   - {fileID: 2079463480}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1507170193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507170188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203d64ff9f1636f488124cc04d12bb46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 700
+  cameraAxis: {fileID: 2079463480}
+  cameraTrack: {fileID: 555523589}
+  camRotSpeed: 500
+  minAngle: -45
+  maxAngle: 45
+  cameraSpeed: 500
 --- !u!1 &1760036527
 GameObject:
   m_ObjectHideFlags: 0
