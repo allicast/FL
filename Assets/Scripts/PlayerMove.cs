@@ -20,10 +20,11 @@ public class PlayerMove : MonoBehaviour
     private float rotY = 0f;
     private float rotX = 0f;
 
-    public float camRotSpeed;
+    public float camRotSpeed = 500f;
     public float minAngle = -45f;
     public float maxAngle = 45f;
-    public float cameraSpeed;
+    public float cameraSpeed = 500f;
+    public float cameraSpeed = 500f;
 
     void Start()
     {
