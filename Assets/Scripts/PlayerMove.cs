@@ -122,6 +122,7 @@ public class PlayerMove : MonoBehaviour
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
         cameraAxis.localRotation = localRotation;
 
+        // 👇 cambio definitivo: cámara SIEMPRE igual al cameraTrack
         theCamera.position = cameraTrack.position;
         theCamera.rotation = cameraTrack.rotation;
     }
