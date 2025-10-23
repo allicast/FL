@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
     Animator playerAnim;
 
     public float playerSpeed;
-    public float runSpeed = 2f; // multiplicador para correr (ejemplo 2x)
+    public float runSpeed = 2f;
 
     private Vector2 newDirection;
 
@@ -53,7 +53,6 @@ public class PlayerMove : MonoBehaviour
         playerAnim.SetFloat("X", newDirection.x);
         playerAnim.SetFloat("Y", newDirection.y);
 
-        // Nuevo: Animación de correr con Shift
         bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         playerAnim.SetBool("isRunning", isRunning);
     }
@@ -66,10 +65,8 @@ public class PlayerMove : MonoBehaviour
 
         newDirection = new Vector2(moveX, moveZ);
 
-        // Checar si se está corriendo (Shift)
         bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        // Aplicar multiplicador si se corre
         float currentSpeed = isRunning ? playerSpeed * runSpeed : playerSpeed;
 
         Vector3 side = currentSpeed * moveX * theTime * playerTr.right;
@@ -125,7 +122,7 @@ public class PlayerMove : MonoBehaviour
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
         cameraAxis.localRotation = localRotation;
 
-        theCamera.position = Vector3.Lerp(theCamera.position, cameraTrack.position, cameraSpeed * theTime);
-        theCamera.rotation = Quaternion.Lerp(theCamera.rotation, cameraTrack.rotation, cameraSpeed * theTime);
+        theCamera.position = cameraTrack.position;
+        theCamera.rotation = cameraTrack.rotation;
     }
 }
