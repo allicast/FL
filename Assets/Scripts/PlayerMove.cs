@@ -33,10 +33,13 @@ public class PlayerMove : MonoBehaviour
 
     private bool isCrouching = false;
 
+    // 🔹 NUEVO: para bloquear movimiento durante animaciones
+    private bool isInteracting = false;
+
     // 🔹 Detección de interacción
-    public float interactDistance = 3f; // distancia para recoger
-    public LayerMask interactLayer;     // capa de objetos interactuables
-    public GameObject interactText;     // referencia al texto "Interactuar (E)"
+    public float interactDistance = 3f;
+    public LayerMask interactLayer;
+    public GameObject interactText;
     private InteractableObject currentObject = null;
 
     void Start()
@@ -52,9 +55,11 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (isInteracting) return; // 👈 Bloquea todo input durante la animación de recoger
+
         CrouchLogic();
-        DetectInteractable();  // 👈 Nuevo
-        HandleInteraction();   // 👈 Nuevo
+        DetectInteractable();
+        HandleInteraction();
         MoveLogic();
         CameraLogic();
         AnimLogic();
@@ -149,7 +154,6 @@ public class PlayerMove : MonoBehaviour
         theCamera.rotation = cameraTrack.rotation;
     }
 
-    // 🔹 Detecta si el mouse apunta a un objeto interactuable
     void DetectInteractable()
     {
         Ray ray = theCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -168,19 +172,33 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        // si no está apuntando a nada
         currentObject = null;
         if (interactText != null)
             interactText.SetActive(false);
     }
 
-    // 🔹 Maneja la interacción al presionar E
     void HandleInteraction()
     {
         if (currentObject != null && Input.GetKeyDown(KeyCode.E))
         {
-            playerAnim.SetTrigger("PickUp"); // animación recoger
-            currentObject.OnInteract();      // 👈 corregido (antes decía OnPickUp)
+            StartCoroutine(InteractRoutine());
         }
+    }
+
+    IEnumerator InteractRoutine()
+    {
+        // 👇 Bloquea movimiento
+        isInteracting = true;
+        playerRb.velocity = Vector3.zero;
+        playerAnim.SetTrigger("PickUp");
+
+        // Espera duración aproximada de la animación (ajusta según tu clip)
+        yield return new WaitForSeconds(5.7f);
+
+        // Ejecuta la lógica del objeto (mostrar UI, ocultar objeto, etc.)
+        currentObject.OnInteract();
+
+        // Desbloquea movimiento nuevamente
+        isInteracting = false;
     }
 }

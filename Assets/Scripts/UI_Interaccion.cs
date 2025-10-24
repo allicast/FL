@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -27,9 +27,11 @@ public class UI_Interaccion : MonoBehaviour
     {
         panelObjeto.SetActive(false);
     }
+
     void Update()
     {
-        if (panelObjeto.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        // 🔹 Si el panel está activo y se hace clic izquierdo, se oculta
+        if (panelObjeto.activeSelf && Input.GetMouseButtonDown(0))
         {
             OcultarObjeto();
         }
