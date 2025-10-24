@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ public class InteractableObject : MonoBehaviour
     // Se llama cuando el jugador presiona "E"
     public void OnInteract()
     {
-        // Aqu� solo notificamos al Player que fue interactuado
+        // Aquí solo notificamos al Player que fue interactuado
         Debug.Log("Has recogido " + objectName);
         if (UI_Interaccion.instance != null)
         {
