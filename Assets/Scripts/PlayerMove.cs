@@ -31,9 +31,6 @@ public class PlayerMove : MonoBehaviour
     private float targetAngle;
     private float startAngle;
 
-    // 🔹 Cambiado a bool y corregido el nombre
-    private bool isCrouching;
-
     void Start()
     {
         playerTr = this.transform;
@@ -58,14 +55,6 @@ public class PlayerMove : MonoBehaviour
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         playerAnim.SetBool("isRunning", isRunning);
-
-        // 🔹 Mantener agachado mientras se mantenga presionado Left Control
-        if (Input.GetKey(KeyCode.LeftControl))
-            isCrouching = true;
-        else
-            isCrouching = false;
-
-        playerAnim.SetBool("isCrouching", isCrouching);
     }
 
     public void MoveLogic()
@@ -106,7 +95,6 @@ public class PlayerMove : MonoBehaviour
         if (!isTurning) return;
 
         float currentY = playerTr.eulerAngles.y;
-
         float newY = Mathf.MoveTowardsAngle(currentY, targetAngle, turnSpeed * Time.deltaTime);
 
         playerTr.eulerAngles = new Vector3(playerTr.eulerAngles.x, newY, playerTr.eulerAngles.z);
@@ -133,7 +121,7 @@ public class PlayerMove : MonoBehaviour
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
         cameraAxis.localRotation = localRotation;
 
-        // 👇 cámara SIEMPRE igual al cameraTrack
+        // 👇 cambio definitivo: cámara SIEMPRE igual al cameraTrack
         theCamera.position = cameraTrack.position;
         theCamera.rotation = cameraTrack.rotation;
     }

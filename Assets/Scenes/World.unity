@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &158212990
 Light:
   m_ObjectHideFlags: 0
@@ -517,7 +517,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 700
   runSpeed: 2
-  crouchSpeed: 1.5
   cameraAxis: {fileID: 2079463480}
   cameraTrack: {fileID: 555523589}
   camRotSpeed: 500
