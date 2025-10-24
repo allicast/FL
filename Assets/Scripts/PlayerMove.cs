@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class PlayerMove : MonoBehaviour
 
     public float playerSpeed;
     public float runSpeed = 2f;
-
     private Vector2 newDirection;
 
     public Transform cameraAxis;
@@ -31,8 +31,13 @@ public class PlayerMove : MonoBehaviour
     private float targetAngle;
     private float startAngle;
 
-    // 🔹 NUEVO: variable para saber si está agachado
     private bool isCrouching = false;
+
+    // 🔹 Detección de interacción
+    public float interactDistance = 3f; // distancia para recoger
+    public LayerMask interactLayer;     // capa de objetos interactuables
+    public GameObject interactText;     // referencia al texto "Interactuar (E)"
+    private InteractableObject currentObject = null;
 
     void Start()
     {
@@ -40,11 +45,16 @@ public class PlayerMove : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponentInChildren<Animator>();
         theCamera = Camera.main.transform;
+
+        if (interactText != null)
+            interactText.SetActive(false);
     }
 
     void Update()
     {
-        CrouchLogic();   // 🔹 primero, para saber si está agachado
+        CrouchLogic();
+        DetectInteractable();  // 👈 Nuevo
+        HandleInteraction();   // 👈 Nuevo
         MoveLogic();
         CameraLogic();
         AnimLogic();
@@ -53,17 +63,11 @@ public class PlayerMove : MonoBehaviour
 
     void CrouchLogic()
     {
-        // 🔹 Si se mantiene presionado Control Izquierdo
         if (Input.GetKey(KeyCode.LeftControl))
-        {
             isCrouching = true;
-        }
         else
-        {
             isCrouching = false;
-        }
 
-        // 🔹 Actualiza animación
         playerAnim.SetBool("isCrouching", isCrouching);
     }
 
@@ -71,14 +75,12 @@ public class PlayerMove : MonoBehaviour
     {
         playerAnim.SetFloat("X", newDirection.x);
         playerAnim.SetFloat("Y", newDirection.y);
-
         bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         playerAnim.SetBool("isRunning", isRunning);
     }
 
     public void MoveLogic()
     {
-        // 🔹 Si está agachado, no puede moverse
         if (isCrouching)
         {
             playerRb.velocity = Vector3.zero;
@@ -93,7 +95,6 @@ public class PlayerMove : MonoBehaviour
         newDirection = new Vector2(moveX, moveZ);
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-
         float currentSpeed = isRunning ? playerSpeed * runSpeed : playerSpeed;
 
         Vector3 side = currentSpeed * moveX * theTime * playerTr.right;
@@ -123,13 +124,10 @@ public class PlayerMove : MonoBehaviour
 
         float currentY = playerTr.eulerAngles.y;
         float newY = Mathf.MoveTowardsAngle(currentY, targetAngle, turnSpeed * Time.deltaTime);
-
         playerTr.eulerAngles = new Vector3(playerTr.eulerAngles.x, newY, playerTr.eulerAngles.z);
 
         if (Mathf.Approximately(newY, targetAngle))
-        {
             isTurning = false;
-        }
     }
 
     public void CameraLogic()
@@ -142,14 +140,47 @@ public class PlayerMove : MonoBehaviour
         rotX = mouseX * theTime * camRotSpeed;
 
         playerTr.Rotate(0, rotX, 0);
-
         rotY = Mathf.Clamp(rotY, minAngle, maxAngle);
 
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
         cameraAxis.localRotation = localRotation;
 
-        // 👇 cámara siempre igual al cameraTrack
         theCamera.position = cameraTrack.position;
         theCamera.rotation = cameraTrack.rotation;
+    }
+
+    // 🔹 Detecta si el mouse apunta a un objeto interactuable
+    void DetectInteractable()
+    {
+        Ray ray = theCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
+        {
+            InteractableObject obj = hit.collider.GetComponent<InteractableObject>();
+
+            if (obj != null)
+            {
+                currentObject = obj;
+                if (interactText != null)
+                    interactText.SetActive(true);
+                return;
+            }
+        }
+
+        // si no está apuntando a nada
+        currentObject = null;
+        if (interactText != null)
+            interactText.SetActive(false);
+    }
+
+    // 🔹 Maneja la interacción al presionar E
+    void HandleInteraction()
+    {
+        if (currentObject != null && Input.GetKeyDown(KeyCode.E))
+        {
+            playerAnim.SetTrigger("PickUp"); // animación recoger
+            currentObject.OnInteract();      // 👈 corregido (antes decía OnPickUp)
+        }
     }
 }
