@@ -31,21 +31,40 @@ public class PlayerMove : MonoBehaviour
     private float targetAngle;
     private float startAngle;
 
+    // 🔹 NUEVO: variable para saber si está agachado
+    private bool isCrouching = false;
+
     void Start()
     {
         playerTr = this.transform;
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponentInChildren<Animator>();
-
         theCamera = Camera.main.transform;
     }
 
     void Update()
     {
+        CrouchLogic();   // 🔹 primero, para saber si está agachado
         MoveLogic();
         CameraLogic();
         AnimLogic();
         TurnLogic();
+    }
+
+    void CrouchLogic()
+    {
+        // 🔹 Si se mantiene presionado Control Izquierdo
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            isCrouching = true;
+        }
+        else
+        {
+            isCrouching = false;
+        }
+
+        // 🔹 Actualiza animación
+        playerAnim.SetBool("isCrouching", isCrouching);
     }
 
     public void AnimLogic()
@@ -59,6 +78,14 @@ public class PlayerMove : MonoBehaviour
 
     public void MoveLogic()
     {
+        // 🔹 Si está agachado, no puede moverse
+        if (isCrouching)
+        {
+            playerRb.velocity = Vector3.zero;
+            newDirection = Vector2.zero;
+            return;
+        }
+
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
         float theTime = Time.deltaTime;
@@ -121,7 +148,7 @@ public class PlayerMove : MonoBehaviour
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
         cameraAxis.localRotation = localRotation;
 
-        // 👇 cambio definitivo: cámara SIEMPRE igual al cameraTrack
+        // 👇 cámara siempre igual al cameraTrack
         theCamera.position = cameraTrack.position;
         theCamera.rotation = cameraTrack.rotation;
     }
