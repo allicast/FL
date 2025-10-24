@@ -193,7 +193,7 @@ public class PlayerMove : MonoBehaviour
         playerAnim.SetTrigger("PickUp");
 
         // Espera duración aproximada de la animación (ajusta según tu clip)
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(4f);
 
         // Ejecuta la lógica del objeto (mostrar UI, ocultar objeto, etc.)
         currentObject.OnInteract();
