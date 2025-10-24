@@ -187,18 +187,22 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator InteractRoutine()
     {
-        // 👇 Bloquea movimiento
         isInteracting = true;
         playerRb.velocity = Vector3.zero;
         playerAnim.SetTrigger("PickUp");
 
-        // Espera duración aproximada de la animación (ajusta según tu clip)
-        yield return new WaitForSeconds(4f);
+        if (interactText != null)
+            interactText.SetActive(false);
 
-        // Ejecuta la lógica del objeto (mostrar UI, ocultar objeto, etc.)
+        // Espera un poco antes de mostrar el canvas (por ejemplo, 0.5 segundos)
+        yield return new WaitForSeconds(0.05f);
+
+        // Muestra el UI del objeto antes de que termine la animación
         currentObject.OnInteract();
 
-        // Desbloquea movimiento nuevamente
+        // Ahora sigue bloqueado hasta que termine la animación
+        yield return new WaitForSeconds(5.5f); // duración completa de la animación - el tiempo anterior
+
         isInteracting = false;
     }
 }
