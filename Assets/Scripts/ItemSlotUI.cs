@@ -14,9 +14,6 @@ public class ItemSlotUI : MonoBehaviour
     {
         if (itemImage != null)
             itemImage.sprite = sprite;
-
-        if (itemName != null)
-            itemName.text = name;
     }
 
     public void OnClickSlot()
