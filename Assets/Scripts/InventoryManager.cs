@@ -12,7 +12,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject itemSlotPrefab;
 
     [Header("UI Adicional")]
-    public GameObject crosshair; // 👈 punto en el centro
+    public GameObject crosshair;
 
     [HideInInspector]
     public List<InventoryItem> items = new List<InventoryItem>();
@@ -33,7 +33,6 @@ public class InventoryManager : MonoBehaviour
         if (crosshair != null)
             crosshair.SetActive(true);
 
-        // 👇 asegúrate de que el mouse esté bloqueado al inicio
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -48,7 +47,6 @@ public class InventoryManager : MonoBehaviour
 
             if (newState)
             {
-                // 👇 INVENTARIO ABIERTO
                 Time.timeScale = 0f;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
@@ -58,7 +56,6 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                // 👇 INVENTARIO CERRADO
                 Time.timeScale = 1f;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
