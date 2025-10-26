@@ -21,10 +21,10 @@ public class PlayerMove : MonoBehaviour
     private float rotY = 0f;
     private float rotX = 0f;
 
-    public float camRotSpeed = 500f;
+    public float camRotSpeed = 700f;
     public float minAngle = -45f;
     public float maxAngle = 45f;
-    public float cameraSpeed = 500f;
+    public float cameraSpeed = 700f;
 
     private bool isTurning = false;
     private float turnSpeed = 720f;
