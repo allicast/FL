@@ -11,12 +11,14 @@ public class InventoryManager : MonoBehaviour
     public Transform itemsParent;
     public GameObject itemSlotPrefab;
 
+    [Header("UI Adicional")]
+    public GameObject crosshair; // 👈 punto en el centro
+
     [HideInInspector]
     public List<InventoryItem> items = new List<InventoryItem>();
 
     void Awake()
     {
-        // Singleton simple
         if (instance == null)
             instance = this;
         else
@@ -27,6 +29,13 @@ public class InventoryManager : MonoBehaviour
     {
         if (inventoryPanel != null)
             inventoryPanel.SetActive(false);
+
+        if (crosshair != null)
+            crosshair.SetActive(true);
+
+        // 👇 asegúrate de que el mouse esté bloqueado al inicio
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -35,44 +44,51 @@ public class InventoryManager : MonoBehaviour
         {
             bool newState = !inventoryPanel.activeSelf;
             inventoryPanel.SetActive(newState);
-
-            // 🟢 Bloquear o desbloquear movimiento y cámara del jugador
             PlayerMove.isInventoryOpen = newState;
 
-            // 🟢 Mostrar u ocultar el cursor
             if (newState)
             {
+                // 👇 INVENTARIO ABIERTO
+                Time.timeScale = 0f;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+
+                if (crosshair != null)
+                    crosshair.SetActive(false);
             }
             else
             {
+                // 👇 INVENTARIO CERRADO
+                Time.timeScale = 1f;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+
+                if (crosshair != null)
+                    crosshair.SetActive(true);
             }
         }
     }
+
     public void AddItem(Sprite image, string name)
     {
         InventoryItem newItem = new InventoryItem(name, image);
         items.Add(newItem);
         UpdateUI();
     }
+
     public void UpdateUI()
     {
         foreach (Transform child in itemsParent)
         {
             Destroy(child.gameObject);
         }
+
         foreach (var item in items)
         {
             GameObject slot = Instantiate(itemSlotPrefab, itemsParent);
-
             ItemSlotUI slotUI = slot.GetComponent<ItemSlotUI>();
             if (slotUI != null)
-            {
                 slotUI.Setup(item.image, item.name);
-            }
         }
     }
 }
