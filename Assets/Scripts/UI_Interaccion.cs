@@ -30,7 +30,6 @@ public class UI_Interaccion : MonoBehaviour
 
     void Update()
     {
-        // 🔹 Si el panel está activo y se hace clic izquierdo, se oculta
         if (panelObjeto.activeSelf && Input.GetMouseButtonDown(0))
         {
             OcultarObjeto();

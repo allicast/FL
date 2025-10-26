@@ -6,7 +6,7 @@ public class InteractableObject : MonoBehaviour
 {
     [Header("Datos del objeto")]
     public string objectName = "Objeto misterioso";
-    public Sprite objectImage; // imagen para mostrar en el canvas
+    public Sprite objectImage;
 
     [HideInInspector] public bool isFocused = false;
 
@@ -20,11 +20,15 @@ public class InteractableObject : MonoBehaviour
         isFocused = false;
     }
 
-    // Se llama cuando el jugador presiona "E"
     public void OnInteract()
     {
-        // Aquí solo notificamos al Player que fue interactuado
         Debug.Log("Has recogido " + objectName);
+
+        if (InventoryManager.instance != null)
+        {
+            InventoryManager.instance.AddItem(objectImage, objectName);
+        }
+
         if (UI_Interaccion.instance != null)
         {
             UI_Interaccion.instance.MostrarObjeto(objectImage, objectName);

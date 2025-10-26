@@ -33,14 +33,14 @@ public class PlayerMove : MonoBehaviour
 
     private bool isCrouching = false;
 
-    // 🔹 NUEVO: para bloquear movimiento durante animaciones
     private bool isInteracting = false;
 
-    // 🔹 Detección de interacción
     public float interactDistance = 3f;
     public LayerMask interactLayer;
     public GameObject interactText;
     private InteractableObject currentObject = null;
+
+    public static bool isInventoryOpen = false;
 
     void Start()
     {
@@ -55,7 +55,14 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (isInteracting) return; // 👈 Bloquea todo input durante la animación de recoger
+        if (isInventoryOpen)
+        {
+            playerRb.velocity = Vector3.zero;
+            playerAnim.SetFloat("X", 0);
+            playerAnim.SetFloat("Y", 0);
+            return;
+        }
+        if (isInteracting) return;
 
         CrouchLogic();
         DetectInteractable();
@@ -194,14 +201,11 @@ public class PlayerMove : MonoBehaviour
         if (interactText != null)
             interactText.SetActive(false);
 
-        // Espera un poco antes de mostrar el canvas (por ejemplo, 0.5 segundos)
         yield return new WaitForSeconds(0.05f);
 
-        // Muestra el UI del objeto antes de que termine la animación
         currentObject.OnInteract();
 
-        // Ahora sigue bloqueado hasta que termine la animación
-        yield return new WaitForSeconds(5.5f); // duración completa de la animación - el tiempo anterior
+        yield return new WaitForSeconds(5.5f);
 
         isInteracting = false;
     }
