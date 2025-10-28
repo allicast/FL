@@ -7,6 +7,7 @@ public class UI_Interaccion : MonoBehaviour
     public GameObject panelObjeto;
     public Image objetoImagen;
     public TMP_Text objetoNombre;
+    public TMP_Text objetoDescripcion;
 
     public static UI_Interaccion instance;
 
@@ -16,10 +17,11 @@ public class UI_Interaccion : MonoBehaviour
         panelObjeto.SetActive(false);
     }
 
-    public void MostrarObjeto(Sprite imagen, string nombre)
+    public void MostrarObjeto(Sprite imagen, string nombre, string descripcion)
     {
         objetoImagen.sprite = imagen;
         objetoNombre.text = nombre;
+        objetoDescripcion.text = descripcion;
         panelObjeto.SetActive(true);
     }
 

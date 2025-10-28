@@ -7,6 +7,7 @@ public class InteractableObject : MonoBehaviour
     [Header("Datos del objeto")]
     public string objectName = "Objeto misterioso";
     public Sprite objectImage;
+    [TextArea(2, 4)] public string objectDescription = "Una descripción del objeto.";
 
     [HideInInspector] public bool isFocused = false;
 
@@ -31,7 +32,7 @@ public class InteractableObject : MonoBehaviour
 
         if (UI_Interaccion.instance != null)
         {
-            UI_Interaccion.instance.MostrarObjeto(objectImage, objectName);
+            UI_Interaccion.instance.MostrarObjeto(objectImage, objectName, objectDescription);
         }
 
         gameObject.SetActive(false);

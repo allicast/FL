@@ -13,7 +13,7 @@ public class ItemSlotUI : MonoBehaviour
     private void Start()
     {
         if (itemName != null)
-            itemName.gameObject.SetActive(false); 
+            itemName.gameObject.SetActive(false);
     }
 
     public void Setup(Sprite sprite, string name)
