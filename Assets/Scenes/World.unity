@@ -849,12 +849,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0072973915, y: 0.018, z: 0.010563742}
-  m_Center: {x: 0.000073294636, y: -0.0000073838237, z: 0.0052818703}
+  m_Size: {x: 0.007825956, y: 0.018, z: 0.010563742}
+  m_Center: {x: 0.00006738186, y: -0.0000073838237, z: 0.0052818703}
 --- !u!1 &555523588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,12 +1416,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0068804966, y: 0.010768269, z: 0.018759994}
-  m_Center: {x: 0.00016231016, y: 0.0006549258, z: 0.009379997}
+  m_Size: {x: 0.010297048, y: 0.010768269, z: 0.018759994}
+  m_Center: {x: -0.000041556174, y: 0.0006549258, z: 0.009379997}
 --- !u!1 &1094888352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,12 +1674,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.005, y: 0.005, z: 0.017582713}
-  m_Center: {x: 0.000015641795, y: 0.00008420206, z: 0.008791356}
+  m_Size: {x: 0.005, y: 0.0071827383, z: 0.017582705}
+  m_Center: {x: 0.00001564175, y: 0.00018136289, z: 0.008791351}
 --- !u!1 &1285351038 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f2fc50f871ed92046a92881de2177c51, type: 3}
@@ -1728,12 +1728,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.008, y: 0.008, z: 0.018254405}
-  m_Center: {x: 0.000016603386, y: -0.00023801421, z: 0.009127202}
+  m_Size: {x: 0.008, y: 0.009050508, z: 0.018254405}
+  m_Center: {x: 0.00001660347, y: 0.0000028067827, z: 0.009127202}
 --- !u!114 &1329198401
 MonoBehaviour:
   m_ObjectHideFlags: 0
