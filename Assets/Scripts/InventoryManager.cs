@@ -66,9 +66,9 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddItem(Sprite image, string name)
+    public void AddItem(Sprite image, string name, string useText)
     {
-        InventoryItem newItem = new InventoryItem(name, image);
+        InventoryItem newItem = new InventoryItem(name, image, useText);
         items.Add(newItem);
         UpdateUI();
     }
@@ -95,10 +95,12 @@ public class InventoryItem
 {
     public string name;
     public Sprite image;
+    [TextArea] public string useText;
 
-    public InventoryItem(string name, Sprite image)
+    public InventoryItem(string name, Sprite image, string useText)
     {
         this.name = name;
         this.image = image;
+        this.useText = useText;
     }
 }

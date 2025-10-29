@@ -825,6 +825,8 @@ MonoBehaviour:
     cuando me duermo en las noches lo escucho moverse por si  solo; cuando Alex me
     lo regalo me dijo que los trenes nunca se detienen de verdad, solo descansan
     hasta el pr\xF3ximo viaje."
+  useText: "No puedo jugar ahora\u2026 primero tengo que ordenar mi cuarto. Tal vez
+    despu\xE9s..."
   isFocused: 0
 --- !u!65 &535185677
 BoxCollider:
@@ -1047,6 +1049,7 @@ RectTransform:
   - {fileID: 1801448349}
   - {fileID: 909835734}
   - {fileID: 1910996309}
+  - {fileID: 1094888353}
   m_Father: {fileID: 1726916010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1390,6 +1393,7 @@ MonoBehaviour:
     paso cerca, su luz se hace m\xE1s fuerte\u2026 como si estuviera contenta de
     verme. Aunque Alex dice que solo es una l\xE1mpara\u2026 yo s\xE9 que no. Ella
     me cuida de verdad."
+  useText: "Aqu\xED ya hay luz\u2026no hace falta usarla por ahora."
   isFocused: 0
 --- !u!65 &1083578166
 BoxCollider:
@@ -1412,6 +1416,82 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0068804966, y: 0.010768269, z: 0.018759994}
   m_Center: {x: 0.00016231016, y: 0.0006549258, z: 0.009379997}
+--- !u!1 &1094888352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094888353}
+  - component: {fileID: 1094888355}
+  - component: {fileID: 1094888354}
+  m_Layer: 5
+  m_Name: PanelTextoUSo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1094888353
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094888352}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2101036401}
+  m_Father: {fileID: 774967022}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 283, y: 203}
+  m_SizeDelta: {x: 453, y: 296}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1094888354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094888352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1094888355
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094888352}
+  m_CullTransparentMesh: 1
 --- !u!1 &1154259965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1650,8 @@ MonoBehaviour:
     que deber\xEDa tirarla, pero no puedo. Ella me habla cuando nadie m\xE1s lo hace.
     A veces susurra mi nombre\u2026 y me canta la misma canci\xF3n que mam\xE1 sol\xEDa
     cantarme."
+  useText: "Lo siento\u2026 no puedo jugar contigo ahora, Si te dejo en tu sitio,
+    mi habitaci\xF3n se ver\xE1 m\xE1s ordenada."
   isFocused: 0
 --- !u!65 &1282609496
 BoxCollider:
@@ -1637,6 +1719,8 @@ MonoBehaviour:
     dormir. Lo tengo desde antes de que papi Ares me adoptara. No recuerdo qui\xE9n
     me lo obsequi\xF3... pero es mi mejor amigo. As\xED que... gracias, quien sea
     que me lo dio."
+  useText: "No aqu\xED\u2026Deber\xEDa ponerte en otro lugar\u2026 tengo que organizar
+    mi habitaci\xF3n r\xE1pido."
   isFocused: 0
 --- !u!1 &1350473352
 GameObject:
@@ -2082,10 +2166,10 @@ MonoBehaviour:
   runSpeed: 2
   cameraAxis: {fileID: 2079463480}
   cameraTrack: {fileID: 555523589}
-  camRotSpeed: 700
+  camRotSpeed: 750
   minAngle: -45
   maxAngle: 45
-  cameraSpeed: 700
+  cameraSpeed: 750
   interactDistance: 1.8
   interactLayer:
     serializedVersion: 2
@@ -2601,6 +2685,8 @@ MonoBehaviour:
   objetoImagen: {fileID: 458054489}
   objetoNombre: {fileID: 1350473353}
   objetoDescripcion: {fileID: 1945306362}
+  panelTextoUso: {fileID: 1094888352}
+  textoUso: {fileID: 2101036402}
 --- !u!114 &1726916007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3430,6 +3516,85 @@ Transform:
   - {fileID: 555523589}
   m_Father: {fileID: 1507170192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2101036400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2101036401}
+  - component: {fileID: 2101036403}
+  - component: {fileID: 2101036402}
+  m_Layer: 5
+  m_Name: TextUso
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2101036401
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101036400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1094888353}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0000038146973, y: -0.0000038146973}
+  m_SizeDelta: {x: 453, y: 296}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2101036402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101036400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 6
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &2101036403
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101036400}
+  m_CullTransparentMesh: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

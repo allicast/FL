@@ -8,6 +8,7 @@ public class InteractableObject : MonoBehaviour
     public string objectName = "Objeto misterioso";
     public Sprite objectImage;
     [TextArea(2, 4)] public string objectDescription = "Una descripción del objeto.";
+    [TextArea] public string useText = "describe texto de usar";
 
     [HideInInspector] public bool isFocused = false;
 
@@ -27,7 +28,7 @@ public class InteractableObject : MonoBehaviour
 
         if (InventoryManager.instance != null)
         {
-            InventoryManager.instance.AddItem(objectImage, objectName);
+            InventoryManager.instance.AddItem(objectImage, objectName, useText);
         }
 
         if (UI_Interaccion.instance != null)

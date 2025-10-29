@@ -11,10 +11,14 @@ public class UI_Interaccion : MonoBehaviour
 
     public static UI_Interaccion instance;
 
+    public GameObject panelTextoUso;
+    public Text textoUso;
+
     void Awake()
     {
         instance = this;
         panelObjeto.SetActive(false);
+        panelTextoUso.SetActive(false);
     }
 
     public void MostrarObjeto(Sprite imagen, string nombre, string descripcion)
@@ -25,9 +29,22 @@ public class UI_Interaccion : MonoBehaviour
         panelObjeto.SetActive(true);
     }
 
+    public void MostrarTextoUso(string texto)
+    {
+        if (textoUso != null)
+        {
+            textoUso.text = texto;
+            panelTextoUso.SetActive(true);
+        }
+    }
     public void OcultarObjeto()
     {
         panelObjeto.SetActive(false);
+    }
+    public void CerrarTextoUso()
+    {
+        if (panelTextoUso != null)
+            panelTextoUso.SetActive(false);
     }
 
     void Update()

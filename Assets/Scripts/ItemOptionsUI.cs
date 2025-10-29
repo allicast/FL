@@ -66,8 +66,10 @@ public class ItemOptionsUI : MonoBehaviour
     }
     public void OnUse()
     {
-        Debug.Log("Usando: " + currentItem.name);
-        HideOptions();
+        if (currentItem == null) return;
+
+        if (UI_Interaccion.instance != null)
+            UI_Interaccion.instance.MostrarTextoUso(currentItem.useText);
     }
 
     public void OnInspect()
