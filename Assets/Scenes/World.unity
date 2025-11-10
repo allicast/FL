@@ -2068,10 +2068,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.19
+  m_Radius: 0.20489125
   m_Height: 1.81
   m_Direction: 1
-  m_Center: {x: 0, y: 0.92, z: -0}
+  m_Center: {x: 0, y: 0.92, z: 0.014891267}
 --- !u!1 &1313223629 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -754604164086561052, guid: c685f619160d8a440866da3b2287da48, type: 3}
@@ -2688,7 +2688,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1507170192}
   - component: {fileID: 1507170191}
-  - component: {fileID: 1507170190}
   - component: {fileID: 1507170193}
   m_Layer: 0
   m_Name: PlayerFaver
@@ -2697,29 +2696,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &1507170190
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507170188}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.19
-  m_Height: 1.4
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.7, z: -0}
 --- !u!54 &1507170191
 Rigidbody:
   m_ObjectHideFlags: 0
