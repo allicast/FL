@@ -2068,10 +2068,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.20489125
+  m_Radius: 0.37927067
   m_Height: 1.81
   m_Direction: 1
-  m_Center: {x: 0, y: 0.92, z: 0.014891267}
+  m_Center: {x: 0.00076083344, y: 0.92, z: -0.009047469}
 --- !u!1 &1313223629 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -754604164086561052, guid: c685f619160d8a440866da3b2287da48, type: 3}
@@ -2431,6 +2431,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e295d5ff745962049af6734ab4ba1002, type: 2}
+    - target: {fileID: -6156058261406820504, guid: c685f619160d8a440866da3b2287da48, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -3111388049534576140, guid: c685f619160d8a440866da3b2287da48, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
