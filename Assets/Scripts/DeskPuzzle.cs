@@ -16,8 +16,8 @@ public class DeskPuzzle : MonoBehaviour
     public GameObject organizedDesk;
 
     [Header("Configuración del Puzzle")]
-    public float timeLimit = 5f; // tiempo total para completar
-    public float progressPerClick = 0.1f; // cuánto llena por click
+    public float timeLimit = 5f;
+    public float progressPerClick = 0.1f;
 
     private bool isPuzzleActive = false;
     private float currentTime;
@@ -31,7 +31,6 @@ public class DeskPuzzle : MonoBehaviour
 
     void Update()
     {
-        // Solo abrir el puzzle si el jugador presiona I y está cerca
         if (Input.GetKeyDown(KeyCode.I) && !isPuzzleActive)
         {
             float distance = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
@@ -49,7 +48,7 @@ public class DeskPuzzle : MonoBehaviour
         progressBar.value = 0f;
         puzzlePanel.SetActive(true);
 
-        // 🔹 Mostrar y desbloquear el cursor
+        // Activar el mouse
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -84,12 +83,19 @@ public class DeskPuzzle : MonoBehaviour
     void CompletePuzzle()
     {
         Debug.Log("✅ Puzzle completado!");
-        puzzlePanel.SetActive(false);
+
+        // 🔹 APAGAR el texto "Interactuar (I)" antes de desactivar el escritorio
+        var interactScript = messyDesk.GetComponent<DeskInteract>();
+        if (interactScript != null && interactScript.interactText != null)
+            interactScript.interactText.gameObject.SetActive(false);
+
+        // 🔹 Desactivar el escritorio desordenado y activar el ordenado
         messyDesk.SetActive(false);
         organizedDesk.SetActive(true);
-        isPuzzleActive = false;
 
-        // 🔹 Ocultar y bloquear el cursor otra vez
+        // 🔹 Cerrar panel y devolver control
+        puzzlePanel.SetActive(false);
+        isPuzzleActive = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -99,8 +105,6 @@ public class DeskPuzzle : MonoBehaviour
         Debug.Log("❌ Puzzle fallido...");
         puzzlePanel.SetActive(false);
         isPuzzleActive = false;
-
-        // 🔹 También volver a ocultar y bloquear el cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
