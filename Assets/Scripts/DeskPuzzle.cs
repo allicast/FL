@@ -31,7 +31,7 @@ public class DeskPuzzle : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && !isPuzzleActive)
+        if (Input.GetKeyDown(KeyCode.C) && !isPuzzleActive)
         {
             float distance = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
             if (distance <= 3f)
