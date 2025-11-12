@@ -67,7 +67,7 @@ public class DeskPuzzle : MonoBehaviour
             // Calcula el tiempo restante en tiempo real
             float elapsed = Time.realtimeSinceStartup - realTimeStart;
             currentTime = timeLimit - elapsed;
-            timerText.text = "Tiempo: " + Mathf.Max(currentTime, 0f).ToString("F1") + "s";
+            timerText.text = Mathf.Max(currentTime, 0f).ToString("F1") + "s";
             yield return null;
         }
 
