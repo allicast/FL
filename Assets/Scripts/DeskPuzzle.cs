@@ -48,19 +48,26 @@ public class DeskPuzzle : MonoBehaviour
         progressBar.value = 0f;
         puzzlePanel.SetActive(true);
 
-        // Activar el mouse
+        // 🔹 Mostrar el cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+        // 🔹 PONER EN PAUSA EL JUEGO
+        Time.timeScale = 0f;
+
+        // 🔹 Iniciar el temporizador usando tiempo real (no afectado por la pausa)
         StartCoroutine(PuzzleTimer());
     }
 
     IEnumerator PuzzleTimer()
     {
-        while (currentTime > 0f && progressBar.value < 1f)
+        float realTimeStart = Time.realtimeSinceStartup;
+        while ((Time.realtimeSinceStartup - realTimeStart) < timeLimit && progressBar.value < 1f)
         {
-            currentTime -= Time.deltaTime;
-            timerText.text = "Tiempo: " + currentTime.ToString("F1") + "s";
+            // Calcula el tiempo restante en tiempo real
+            float elapsed = Time.realtimeSinceStartup - realTimeStart;
+            currentTime = timeLimit - elapsed;
+            timerText.text = "Tiempo: " + Mathf.Max(currentTime, 0f).ToString("F1") + "s";
             yield return null;
         }
 
@@ -84,18 +91,22 @@ public class DeskPuzzle : MonoBehaviour
     {
         Debug.Log("✅ Puzzle completado!");
 
-        // 🔹 APAGAR el texto "Interactuar (I)" antes de desactivar el escritorio
+        // 🔹 Apagar el texto "Interactuar (I)"
         var interactScript = messyDesk.GetComponent<DeskInteract>();
         if (interactScript != null && interactScript.interactText != null)
             interactScript.interactText.gameObject.SetActive(false);
 
-        // 🔹 Desactivar el escritorio desordenado y activar el ordenado
+        // 🔹 Cambiar escritorios
         messyDesk.SetActive(false);
         organizedDesk.SetActive(true);
 
-        // 🔹 Cerrar panel y devolver control
         puzzlePanel.SetActive(false);
         isPuzzleActive = false;
+
+        // 🔹 Reanudar el juego
+        Time.timeScale = 1f;
+
+        // 🔹 Ocultar el cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -105,6 +116,11 @@ public class DeskPuzzle : MonoBehaviour
         Debug.Log("❌ Puzzle fallido...");
         puzzlePanel.SetActive(false);
         isPuzzleActive = false;
+
+        // 🔹 Reanudar el juego
+        Time.timeScale = 1f;
+
+        // 🔹 Ocultar el cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
