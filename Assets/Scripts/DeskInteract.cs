@@ -6,7 +6,7 @@ using TMPro;
 public class DeskInteract : MonoBehaviour
 {
     public TextMeshProUGUI interactText; // Referencia al texto en UI
-    public float interactionDistance = 3f; // Distancia para poder interactuar
+    public float interactionDistance; // Distancia para poder interactuar
     private Transform player;
 
     private bool isNear = false;
