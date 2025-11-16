@@ -18,6 +18,9 @@ public class PlayerMove : MonoBehaviour
     public Transform cameraTrack;
     private Transform theCamera;
 
+    public float cameraCollisionRadius = 0.2f;
+    public float cameraWallOffset = 0.1f;
+
     private float rotY = 0f;
     private float rotX = 0f;
 
@@ -160,6 +163,20 @@ public class PlayerMove : MonoBehaviour
 
         theCamera.position = cameraTrack.position;
         theCamera.rotation = cameraTrack.rotation;
+
+        Vector3 camDir = (theCamera.position - cameraAxis.position).normalized;
+        float maxDist = Vector3.Distance(cameraAxis.position, cameraTrack.position);
+
+        if (Physics.SphereCast(
+            cameraAxis.position,
+            cameraCollisionRadius,
+            camDir,
+            out RaycastHit hit,
+            maxDist
+        ))
+        {
+            theCamera.position = hit.point - camDir * cameraWallOffset;
+        }
     }
 
     void DetectInteractable()
