@@ -9,7 +9,6 @@ public class DeskInteract : MonoBehaviour
     public float interactionDistance; // Distancia para poder interactuar
     private Transform player;
 
-    private bool isNear = false;
     private bool isMouseOver = false;
 
     void Start()

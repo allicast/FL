@@ -32,7 +32,6 @@ public class PlayerMove : MonoBehaviour
     private float startAngle;
 
     private bool isCrouching = false;
-
     private bool isInteracting = false;
 
     public float interactDistance = 3f;
@@ -62,6 +61,7 @@ public class PlayerMove : MonoBehaviour
             playerAnim.SetFloat("Y", 0);
             return;
         }
+
         if (isInteracting) return;
 
         CrouchLogic();
@@ -75,11 +75,7 @@ public class PlayerMove : MonoBehaviour
 
     void CrouchLogic()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
-            isCrouching = true;
-        else
-            isCrouching = false;
-
+        isCrouching = Input.GetKey(KeyCode.LeftControl);
         playerAnim.SetBool("isCrouching", isCrouching);
     }
 
@@ -87,6 +83,7 @@ public class PlayerMove : MonoBehaviour
     {
         playerAnim.SetFloat("X", newDirection.x);
         playerAnim.SetFloat("Y", newDirection.y);
+
         bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         playerAnim.SetBool("isRunning", isRunning);
     }
@@ -102,11 +99,14 @@ public class PlayerMove : MonoBehaviour
 
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        float theTime = Time.deltaTime;
 
+        if (moveZ < 0) moveZ = 0;
+
+        float theTime = Time.deltaTime;
         newDirection = new Vector2(moveX, moveZ);
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isTryingToRun = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isRunning = isTryingToRun && moveZ > 0 && !isTurning;
         float currentSpeed = isRunning ? playerSpeed * runSpeed : playerSpeed;
 
         Vector3 side = currentSpeed * moveX * theTime * playerTr.right;
@@ -114,11 +114,11 @@ public class PlayerMove : MonoBehaviour
 
         if (!isTurning)
         {
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 isTurning = true;
                 startAngle = playerTr.eulerAngles.y;
-                targetAngle = startAngle + 180f;
+                targetAngle = (startAngle + 180f) % 360f;
             }
             else
             {
@@ -136,6 +136,7 @@ public class PlayerMove : MonoBehaviour
 
         float currentY = playerTr.eulerAngles.y;
         float newY = Mathf.MoveTowardsAngle(currentY, targetAngle, turnSpeed * Time.deltaTime);
+
         playerTr.eulerAngles = new Vector3(playerTr.eulerAngles.x, newY, playerTr.eulerAngles.z);
 
         if (Mathf.Approximately(newY, targetAngle))
@@ -152,8 +153,8 @@ public class PlayerMove : MonoBehaviour
         rotX = mouseX * theTime * camRotSpeed;
 
         playerTr.Rotate(0, rotX, 0);
-        rotY = Mathf.Clamp(rotY, minAngle, maxAngle);
 
+        rotY = Mathf.Clamp(rotY, minAngle, maxAngle);
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
         cameraAxis.localRotation = localRotation;
 
@@ -169,7 +170,6 @@ public class PlayerMove : MonoBehaviour
         if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
         {
             InteractableObject obj = hit.collider.GetComponent<InteractableObject>();
-
             if (obj != null)
             {
                 currentObject = obj;
@@ -206,7 +206,6 @@ public class PlayerMove : MonoBehaviour
         currentObject.OnInteract();
 
         yield return new WaitForSeconds(5.5f);
-
         isInteracting = false;
     }
 }
