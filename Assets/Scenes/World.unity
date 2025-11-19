@@ -6278,13 +6278,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcc49ffc36162940a65d290b25217e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texto1: {fileID: 734459189}
-  texto2: {fileID: 141162675}
+  texto1: {fileID: 141162675}
+  texto2: {fileID: 734459189}
   mensaje: {fileID: 216890487}
   tiempoVisible: 4
-  delayTexto1: 10
+  delayTexto1: 15
   duracionTexto1: 4
-  delayTexto2: 22
+  delayTexto2: 25
   duracionTexto2: 4
 --- !u!4 &1989436541
 Transform:
