@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // solo si usas TextMeshPro
+using TMPro;
 
 public class MensajeInicio : MonoBehaviour
 {
-    public TMP_Text mensaje;   // arrastra aquí el texto
-    public float tiempoVisible = 5f; // segundos que durará
+    public TMP_Text mensaje;
+    public float tiempoVisible;
 
     void Start()
     {
