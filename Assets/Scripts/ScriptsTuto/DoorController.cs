@@ -12,8 +12,8 @@ public class DoorController : MonoBehaviour
     public Transform player;
 
     [Header("UI")]
-    public TextMeshProUGUI textOpen;   // "Presiona E para abrir"
-    public TextMeshProUGUI textClose;  // "Presiona E para cerrar"
+    public TextMeshProUGUI textOpen;
+    public TextMeshProUGUI textClose;
 
     private bool isOpen = false;
     private Quaternion closedRot;
@@ -24,17 +24,14 @@ public class DoorController : MonoBehaviour
         closedRot = transform.rotation;
         openRot = Quaternion.Euler(transform.eulerAngles + new Vector3(0f, openAngle, 0f));
 
-        // Ocultar textos al iniciar
         textOpen.gameObject.SetActive(false);
         textClose.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        // Distancia entre jugador y puerta
         float dist = Vector3.Distance(player.position, transform.position);
 
-        // Mostrar texto solo si está cerca
         if (dist <= detectionDistance)
         {
             if (isOpen)
@@ -48,18 +45,15 @@ public class DoorController : MonoBehaviour
                 textClose.gameObject.SetActive(false);
             }
 
-            // Si presiona E, cambiar estado
             if (Input.GetKeyDown(KeyCode.E))
                 isOpen = !isOpen;
         }
         else
         {
-            // Ocultar ambos textos si está lejos
             textOpen.gameObject.SetActive(false);
             textClose.gameObject.SetActive(false);
         }
 
-        // Rotación suave
         Quaternion target = isOpen ? openRot : closedRot;
         transform.rotation = Quaternion.Lerp(transform.rotation, target, Time.deltaTime * speed);
     }

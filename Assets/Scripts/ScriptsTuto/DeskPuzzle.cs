@@ -48,14 +48,11 @@ public class DeskPuzzle : MonoBehaviour
         progressBar.value = 0f;
         puzzlePanel.SetActive(true);
 
-        // 🔹 Mostrar el cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        // 🔹 PONER EN PAUSA EL JUEGO
         Time.timeScale = 0f;
 
-        // 🔹 Iniciar el temporizador usando tiempo real (no afectado por la pausa)
         StartCoroutine(PuzzleTimer());
     }
 
@@ -64,7 +61,6 @@ public class DeskPuzzle : MonoBehaviour
         float realTimeStart = Time.realtimeSinceStartup;
         while ((Time.realtimeSinceStartup - realTimeStart) < timeLimit && progressBar.value < 1f)
         {
-            // Calcula el tiempo restante en tiempo real
             float elapsed = Time.realtimeSinceStartup - realTimeStart;
             currentTime = timeLimit - elapsed;
             timerText.text = Mathf.Max(currentTime, 0f).ToString("F1") + "s";
@@ -89,38 +85,32 @@ public class DeskPuzzle : MonoBehaviour
 
     void CompletePuzzle()
     {
-        Debug.Log("✅ Puzzle completado!");
+        Debug.Log("Puzzle completado!");
 
-        // 🔹 Apagar el texto "Interactuar (I)"
         var interactScript = messyDesk.GetComponent<DeskInteract>();
         if (interactScript != null && interactScript.interactText != null)
             interactScript.interactText.gameObject.SetActive(false);
 
-        // 🔹 Cambiar escritorios
         messyDesk.SetActive(false);
         organizedDesk.SetActive(true);
 
         puzzlePanel.SetActive(false);
         isPuzzleActive = false;
 
-        // 🔹 Reanudar el juego
         Time.timeScale = 1f;
 
-        // 🔹 Ocultar el cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FailPuzzle()
     {
-        Debug.Log("❌ Puzzle fallido...");
+        Debug.Log("Puzzle fallido...");
         puzzlePanel.SetActive(false);
         isPuzzleActive = false;
 
-        // 🔹 Reanudar el juego
         Time.timeScale = 1f;
 
-        // 🔹 Ocultar el cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

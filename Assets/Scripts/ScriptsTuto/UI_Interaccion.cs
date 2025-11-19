@@ -54,10 +54,8 @@ public class UI_Interaccion : MonoBehaviour
             OcultarObjeto();
         }
 
-        // Cerrar texto de uso si haces clic fuera
         if (panelTextoUso.activeSelf && Input.GetMouseButtonDown(0))
         {
-            // Revisar si el clic fue fuera del panel
             if (!RectTransformUtility.RectangleContainsScreenPoint(
                 panelTextoUso.GetComponent<RectTransform>(),
                 Input.mousePosition,
