@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum CharacterSide
 {
@@ -158,8 +159,10 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("Fin del diálogo");
 
-            if (dialoguePanel != null)
-                dialoguePanel.SetActive(false);
+            SceneManager.LoadScene("World");
+
+            //if (dialoguePanel != null)//
+            //dialoguePanel.SetActive(false);//
         }
     }
 }
