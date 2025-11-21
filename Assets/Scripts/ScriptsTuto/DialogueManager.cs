@@ -17,7 +17,7 @@ public class DialogueLine
     public string text;
 
     public Sprite characterSprite;   // retrato del personaje
-    public Sprite frameSprite;       // marco decorativo (izq o der)
+    public Sprite frameSprite;       // marco decorativo
 
     public CharacterSide side;
 }
@@ -25,7 +25,8 @@ public class DialogueLine
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI - Textos")]
-    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI leftNameText;
+    public TextMeshProUGUI rightNameText;
     public TextMeshProUGUI dialogText;
 
     [Header("UI - Personajes")]
@@ -36,8 +37,9 @@ public class DialogueManager : MonoBehaviour
     public Image leftFrameImage;
     public Image rightFrameImage;
 
-    [Header("Botón siguiente")]
-    public Button nextButton;
+    [Header("Botones siguiente (izquierda y derecha)")]
+    public Button nextButtonLeft;
+    public Button nextButtonRight;
 
     [Header("Configuración")]
     public float typeSpeed = 0.04f;
@@ -50,7 +52,13 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        nextButton.onClick.AddListener(NextDialogue);
+        // Ambos botones hacen lo mismo
+        if (nextButtonLeft != null)
+            nextButtonLeft.onClick.AddListener(NextDialogue);
+
+        if (nextButtonRight != null)
+            nextButtonRight.onClick.AddListener(NextDialogue);
+
         ShowLine();
     }
 
@@ -64,37 +72,40 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = lines[index];
 
-        nameText.text = line.characterName;
-
-        // RESET: apagar todo antes de activar lo necesario
+        // APAGAR todo
         leftCharacterImage.gameObject.SetActive(false);
         rightCharacterImage.gameObject.SetActive(false);
         leftFrameImage.gameObject.SetActive(false);
         rightFrameImage.gameObject.SetActive(false);
+        leftNameText.gameObject.SetActive(false);
+        rightNameText.gameObject.SetActive(false);
 
-        // --- Mostrar en izquierda ---
+        // IZQUIERDA
         if (line.side == CharacterSide.Left)
         {
-            // personaje
             leftCharacterImage.sprite = line.characterSprite;
             leftCharacterImage.gameObject.SetActive(true);
 
-            // marco decorativo
             leftFrameImage.sprite = line.frameSprite;
             leftFrameImage.gameObject.SetActive(true);
+
+            leftNameText.text = line.characterName;
+            leftNameText.gameObject.SetActive(true);
         }
         else
         {
-            // personaje
+            // DERECHA
             rightCharacterImage.sprite = line.characterSprite;
             rightCharacterImage.gameObject.SetActive(true);
 
-            // marco decorativo
             rightFrameImage.sprite = line.frameSprite;
             rightFrameImage.gameObject.SetActive(true);
+
+            rightNameText.text = line.characterName;
+            rightNameText.gameObject.SetActive(true);
         }
 
-        // --- Efecto máquina de escribir ---
+        // EFECTO MÁQUINA DE ESCRIBIR
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 

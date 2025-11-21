@@ -285,6 +285,140 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &73532406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73532407}
+  - component: {fileID: 73532408}
+  - component: {fileID: 73532409}
+  m_Layer: 5
+  m_Name: NameRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &73532407
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73532406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1313775029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 317, y: -254}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &73532408
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73532406}
+  m_CullTransparentMesh: 1
+--- !u!114 &73532409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73532406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &158212989
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,25 +893,125 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a791eb406d4034c810825b6790a34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 1884606021}
+  leftNameText: {fileID: 1884606021}
+  rightNameText: {fileID: 73532409}
   dialogText: {fileID: 1695624201}
   leftCharacterImage: {fileID: 1764146533}
   rightCharacterImage: {fileID: 734289224}
   leftFrameImage: {fileID: 58933577}
   rightFrameImage: {fileID: 325553183}
-  nextButton: {fileID: 1352605198}
+  nextButtonLeft: {fileID: 2072146786}
+  nextButtonRight: {fileID: 1352605198}
   typeSpeed: 0.04
   lines:
-  - characterName: Alex
+  - characterName: ???
     text: ...
-    characterSprite: {fileID: 21300000, guid: 1a48a1c4d68358a408de38f3230c0d02, type: 3}
+    characterSprite: {fileID: 21300000, guid: 84888e4b7862a5849938216e72a85046, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: ???
+    text: "Faver? Hey peque\xF1a?"
+    characterSprite: {fileID: 21300000, guid: 84888e4b7862a5849938216e72a85046, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: AAHH!!
+    characterSprite: {fileID: 21300000, guid: 24e934fa4d797e946aaf2409614bff2d, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: ???
+    text: "Ey, ey\u2026 tranquila ni\xF1a. Ya despertaste. Solo fue un sue\xF1o."
+    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: Alex...Hermanito!!
+    characterSprite: {fileID: 21300000, guid: 0823bc1555d9c1349a1c607cc4c0b694, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: ...Otra pesadilla?
+    characterSprite: {fileID: 21300000, guid: 3ca0fab4f7f112e419c107425a52bc12, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: "Se sent\xEDa tan real\u2026 Hab\xEDa sombras\u2026 y voces\u2026"
+    characterSprite: {fileID: 21300000, guid: 0823bc1555d9c1349a1c607cc4c0b694, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: "Lo s\xE9 peque\xF1a. Te escuch\xE9 desde el pasillo. Pero m\xEDrame, ya
+      pas\xF3. Est\xE1s aqu\xED, en tu cuarto, conmigo."
+    characterSprite: {fileID: 21300000, guid: e539702e5355c974ea391802ab083324, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: "Escuch\xE9 ruidos\u2026 gritos\u2026 y despu\xE9s, pap\xE1\u2026 no recuerdo
+      bien\u2026 todo se volvi\xF3 oscuro."
+    characterSprite: {fileID: 21300000, guid: 24e934fa4d797e946aaf2409614bff2d, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: "Shh\u2026 respira conmigo."
+    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Alex
-    text: Faver?
-    characterSprite: {fileID: 21300000, guid: 1a48a1c4d68358a408de38f3230c0d02, type: 3}
+    text: "No fue real, Faver. Fue solo una pesadilla. Pap\xE1 est\xE1 bien."
+    characterSprite: {fileID: 21300000, guid: e539702e5355c974ea391802ab083324, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
+  - characterName: Faver
+    text: P-pero... realmente siento como si muriera...
+    characterSprite: {fileID: 21300000, guid: 8d913fb57fc031646b8ee3d122224184, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: Las pesadillas hacen eso.
+    characterSprite: {fileID: 21300000, guid: 84888e4b7862a5849938216e72a85046, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Alex
+    text: "Anda, lev\xE1ntate. Pap\xE1 nos necesita abajo en el sal\xF3n principal."
+    characterSprite: {fileID: 21300000, guid: 3ca0fab4f7f112e419c107425a52bc12, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: "\xBFPap\xE1? \xBFPas\xF3 algo?"
+    characterSprite: {fileID: 21300000, guid: f4951c1105a4d8446b1faa412085063e, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: "No lo s\xE9, pero dijo que era importante."
+    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Alex
+    text: "Y\u2026 antes de que bajes\u2026 quiz\xE1 deber\xEDas ordenar un poco
+      tu cuarto.\nYa sabes c\xF3mo se pone si ve todo tirado por ah\xED."
+    characterSprite: {fileID: 21300000, guid: 3ca0fab4f7f112e419c107425a52bc12, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: "Ugh\u2026 bien\u2026 ya voy a organizar."
+    characterSprite: {fileID: 21300000, guid: 1a48a1c4d68358a408de38f3230c0d02, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: Te espero abajo.
+    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Alex
+    text: "No tardes, \xBFs\xED?"
+    characterSprite: {fileID: 21300000, guid: a9c69fa78d035ec4cab5fa91d4051ab2, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Faver
+    text: Prometido.
+    characterSprite: {fileID: 21300000, guid: 91d71aae9021fad4fa6ce8aac3a99a7a, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
 --- !u!4 &398036573
 Transform:
   m_ObjectHideFlags: 0
@@ -1003,8 +1237,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1617, y: 279}
-  m_SizeDelta: {x: 600, y: 600}
+  m_AnchoredPosition: {x: 1667, y: 249}
+  m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &734289223
 CanvasRenderer:
@@ -1564,8 +1798,10 @@ RectTransform:
   - {fileID: 1764146532}
   - {fileID: 734289222}
   - {fileID: 1884606019}
+  - {fileID: 73532407}
   - {fileID: 1695624199}
   - {fileID: 1352605201}
+  - {fileID: 2072146783}
   m_Father: {fileID: 1726916010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1650,7 +1886,7 @@ GameObject:
   - component: {fileID: 1352605199}
   - component: {fileID: 1352605198}
   m_Layer: 5
-  m_Name: ButtonNext
+  m_Name: ButtonNextRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2566,7 +2802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 294, y: 279}
+  m_AnchoredPosition: {x: 264, y: 302}
   m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1764146533
@@ -2673,7 +2909,7 @@ GameObject:
   - component: {fileID: 1884606020}
   - component: {fileID: 1884606021}
   m_Layer: 5
-  m_Name: Name
+  m_Name: NameLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2871,6 +3107,126 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1282609496}
   m_SourcePrefab: {fileID: 100100000, guid: 3772e01eabb2cf94699befa7746b2801, type: 3}
+--- !u!1 &2072146782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2072146783}
+  - component: {fileID: 2072146785}
+  - component: {fileID: 2072146784}
+  - component: {fileID: 2072146786}
+  m_Layer: 5
+  m_Name: ButtonNextLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2072146783
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072146782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1313775029}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -482.4, y: -441.7}
+  m_SizeDelta: {x: 43.031, y: 35.9707}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2072146784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072146782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2072146785
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072146782}
+  m_CullTransparentMesh: 1
+--- !u!114 &2072146786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072146782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2072146784}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2079463479
 GameObject:
   m_ObjectHideFlags: 0
