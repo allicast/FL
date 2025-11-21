@@ -24,6 +24,9 @@ public class DialogueLine
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("Panel del diálogo")]
+    public GameObject dialoguePanel;   // <<--- AGREGADO
+
     [Header("UI - Textos")]
     public TextMeshProUGUI leftNameText;
     public TextMeshProUGUI rightNameText;
@@ -52,6 +55,10 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        // ACTIVAR PANEL AL INICIAR LA ESCENA
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(true);   // <<--- AGREGADO
+
         // Ambos botones hacen lo mismo
         if (nextButtonLeft != null)
             nextButtonLeft.onClick.AddListener(NextDialogue);
@@ -150,6 +157,9 @@ public class DialogueManager : MonoBehaviour
         else
         {
             Debug.Log("Fin del diálogo");
+
+            if (dialoguePanel != null)
+                dialoguePanel.SetActive(false);
         }
     }
 }

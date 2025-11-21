@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    
+
     public GameObject MainMenuCanvas;
     public GameObject settingsPanel;
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("World");
+        SceneManager.LoadScene("Cinematica");
     }
 
     public void OpenSettings()

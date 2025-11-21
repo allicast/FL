@@ -893,6 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a791eb406d4034c810825b6790a34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialoguePanel: {fileID: 1313775028}
   leftNameText: {fileID: 1884606021}
   rightNameText: {fileID: 73532409}
   dialogText: {fileID: 1695624201}
@@ -1780,7 +1781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1313775029
 RectTransform:
   m_ObjectHideFlags: 0
