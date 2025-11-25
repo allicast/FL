@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject pausePanel; 
-    public Button resumeButton;   
-    public Button quitButton; 
+    public GameObject pausePanel;
+    public Button resumeButton;
+    public Button quitButton;
 
     bool isPaused = false;
     CursorLockMode previousLockState;
@@ -15,21 +15,21 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        
+
         if (pausePanel != null) pausePanel.SetActive(false);
 
-        
+
         if (resumeButton != null) resumeButton.onClick.AddListener(ResumeGame);
         if (quitButton != null) quitButton.onClick.AddListener(QuitToMainMenu);
 
-        
+
         previousLockState = Cursor.lockState;
         previousCursorVisible = Cursor.visible;
     }
 
     void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused) ResumeGame();
@@ -41,15 +41,15 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = true;
 
-        
+
         if (pausePanel != null) pausePanel.SetActive(true);
 
-        
+
         Time.timeScale = 0f;
 
-        
 
-        
+
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -58,30 +58,25 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
 
-        
         if (pausePanel != null) pausePanel.SetActive(false);
 
-        
         Time.timeScale = 1f;
-
-        
         AudioListener.pause = false;
 
-        
-        Cursor.lockState = previousLockState;
-        Cursor.visible = previousCursorVisible;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void QuitToMainMenu()
     {
-        
+
         Time.timeScale = 1f;
         AudioListener.pause = false;
 
-        
+
         SceneManager.LoadScene("UI");
     }
 
-  
+
 }
 

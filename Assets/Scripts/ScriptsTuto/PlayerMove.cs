@@ -12,7 +12,8 @@ public class PlayerMove : MonoBehaviour
 
     public float playerSpeed;
     public float runSpeed = 2f;
-    private Vector2 newDirection;
+    [HideInInspector]
+    public Vector2 newDirection;
 
     public Transform cameraAxis;
     public Transform cameraTrack;
