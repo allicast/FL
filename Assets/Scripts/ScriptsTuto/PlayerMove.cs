@@ -45,6 +45,9 @@ public class PlayerMove : MonoBehaviour
 
     public static bool isInventoryOpen = false;
 
+    
+    public bool enabledControl = true;
+
     void Start()
     {
         playerTr = this.transform;
@@ -58,6 +61,15 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        // 🔥 NUEVO → Bloqueo total del movimiento para el tutorial
+        if (!enabledControl)
+        {
+            playerRb.velocity = Vector3.zero;
+            playerAnim.SetFloat("X", 0);
+            playerAnim.SetFloat("Y", 0);
+            return;
+        }
+
         if (isInventoryOpen)
         {
             playerRb.velocity = Vector3.zero;
