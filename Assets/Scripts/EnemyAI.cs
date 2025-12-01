@@ -3,61 +3,150 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [Header("IA")]
     public Transform[] patrolPoints;
     public Transform player;
     public NavMeshAgent agent;
     public float detectionRange = 10f;
     public float chaseRange = 15f;
-    public AudioSource tensionAudio; 
+    public float attackRange = 2f;
+
+    [Header("Velocidades")]
+    public float patrolSpeed = 1.5f;
+    public float chaseSpeed = 3.5f;
+
+    [Header("Audio")]
+    public AudioSource tensionAudio;
+
+    [Header("Animaciones")]
+    public Animator animator;
+
     private int currentPoint = 0;
     private bool chasing = false;
+    private bool attacking = false;
 
     void Start()
     {
         if (agent == null) agent = GetComponent<NavMeshAgent>();
+        if (animator == null) animator = GetComponent<Animator>();
+
+        agent.speed = patrolSpeed;
+
         if (patrolPoints.Length > 0)
             agent.SetDestination(patrolPoints[0].position);
+
+        tensionAudio.volume = 0;
+        tensionAudio.Stop();
     }
 
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-       
-        float volume = Mathf.Clamp01(1 - (distanceToPlayer / chaseRange));
-        tensionAudio.volume = volume;
+        HandleAudio(distanceToPlayer);
 
+        if (!attacking)
+            HandleAI(distanceToPlayer);
+    }
+
+    void HandleAudio(float distance)
+    {
+        
+        if (!chasing)
+        {
+            if (tensionAudio.isPlaying)
+                tensionAudio.Stop();
+
+            return;
+        }
+
+        if (distance > chaseRange)
+        {
+            tensionAudio.volume = 0;
+            return;
+        }
+
+       
+        if (!tensionAudio.isPlaying)
+            tensionAudio.Play();
+
+        
+        float volume = Mathf.Clamp01(1 - (distance / chaseRange));
+        tensionAudio.volume = volume;
+    }
+
+    
+    void HandleAI(float distance)
+    {
         if (chasing)
         {
+            agent.speed = chaseSpeed; 
             agent.SetDestination(player.position);
+            SetAnimation("run");
 
-            
-            if (distanceToPlayer > chaseRange)
+            if (distance > chaseRange)
             {
                 chasing = false;
                 GoToNextPatrolPoint();
             }
+            else if (distance <= attackRange)
+            {
+                StartCoroutine(AttackSequence());
+            }
         }
         else
         {
-            
-            if (distanceToPlayer < detectionRange)
+            if (distance < detectionRange)
             {
                 chasing = true;
+                return;
             }
-            else
-            {
-                
-                if (!agent.pathPending && agent.remainingDistance < 0.5f)
-                    GoToNextPatrolPoint();
-            }
+
+            PatrolBehaviour();
         }
+    }
+
+   
+    System.Collections.IEnumerator AttackSequence()
+    {
+        attacking = true;
+        agent.isStopped = true;
+
+        animator.SetTrigger("Scream");
+
+        yield return new WaitForSeconds(2f);
+
+        agent.isStopped = false;
+        attacking = false;
+    }
+
+  
+    void PatrolBehaviour()
+    {
+        agent.speed = patrolSpeed;
+
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            GoToNextPatrolPoint();
+
+        if (agent.velocity.magnitude > 0.1f)
+            SetAnimation("walk");
+        else
+            SetAnimation("idle");
     }
 
     void GoToNextPatrolPoint()
     {
         if (patrolPoints.Length == 0) return;
+
         agent.destination = patrolPoints[currentPoint].position;
         currentPoint = (currentPoint + 1) % patrolPoints.Length;
+    }
+
+    
+    void SetAnimation(string state)
+    {
+        animator.SetBool("isWalking", state == "walk");
+        animator.SetBool("isRunning", state == "run");
+        animator.SetBool("isIdle", state == "idle");
     }
 }
