@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class NPCInteractionTrigger : MonoBehaviour
 {
-    public TutorialManager tutorial;
+    public TutorialManager tutorialManager;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            tutorial.PlayerReachedNPC();
+            Debug.Log("Trigger detectó al Player");
+            tutorialManager.PlayerReachedNPC();
         }
     }
 }

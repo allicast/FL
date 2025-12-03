@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
     public Transform cameraAxis;
     public Transform cameraTrack;
     private Transform theCamera;
+    public Transform playerCameraPivot;
+
 
     public float cameraCollisionRadius = 0.2f;
     public float cameraWallOffset = 0.1f;
@@ -38,7 +40,7 @@ public class PlayerMove : MonoBehaviour
     private float targetAngle;
     private float startAngle;
 
-    
+    [HideInInspector] public bool cameraEnabled = true;
     [HideInInspector] public bool isCrouching = false;
 
     
@@ -62,13 +64,29 @@ public class PlayerMove : MonoBehaviour
         if (interactText != null)
             interactText.SetActive(false);
     }
+    public void ResetMovementState()
+    {
+        
+        newDirection = Vector2.zero;
+
+        
+        if (playerRb != null) playerRb.velocity = Vector3.zero;
+        if (playerAnim != null)
+        {
+            playerAnim.SetFloat("X", 0f);
+            playerAnim.SetFloat("Y", 0f);
+        }
+    }
 
     void Update()
     {
-       
+
+        bool tempCamEnabled = cameraEnabled;
+
         if (!enabledControl)
         {
             playerRb.velocity = Vector3.zero;
+            newDirection = Vector2.zero;
             if (playerAnim != null)
             {
                 playerAnim.SetFloat("X", 0);
@@ -179,8 +197,12 @@ public class PlayerMove : MonoBehaviour
             isTurning = false;
     }
 
+    
     public void CameraLogic()
     {
+        
+        if (!cameraEnabled) return;
+        if (!enabledControl) return;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         float theTime = Time.deltaTime;

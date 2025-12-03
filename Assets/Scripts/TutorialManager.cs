@@ -1,183 +1,178 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    public Text tutorialText;         
-    public Camera mainCam;            
-    public Transform camOriginalPos;  
-    public Transform camNPCPos;       
-    public PlayerMove player;        
+    [Header("UI y Referencias")]
+    public TextMeshProUGUI tutorialText;
+    public Transform npcLookTarget;
+    public PlayerMove player; 
 
-    public float camMoveSpeed = 2f;
-    public float waitAfterReturn = 0.5f;
+    [Header("Configuración")]
+    public float camRotateSpeed = 3f;
 
-    public bool TutorialStarted = false;
-    int currentStep = 0;
-    bool waitingPlayerAction = false;
+    // Estado del tutorial
+    public bool tutorialActive = false;
+    private int currentStep = 0;
+    private Transform mainCam;
+
+    void Start()
+    {
+        mainCam = Camera.main.transform;
+        tutorialText.text = ""; 
+    }
 
     
     public void PlayerReachedNPC()
     {
-        if (!TutorialStarted)
+        if (!tutorialActive)
         {
-            TutorialStarted = true;
-            StartCoroutine(StartTutorial());
+            tutorialActive = true;
+            StartCoroutine(SecuenciaTutorial());
         }
     }
 
-    IEnumerator StartTutorial()
+    
+    IEnumerator SecuenciaTutorial()
     {
         
-        if (mainCam == null) mainCam = Camera.main;
+        yield return StartCoroutine(EjecutarPaso(
+            "Hola Faver. dejame explicarte algunas cosas que debes de saber, empieza moviendote con ASWD.", 
+            0 
+        ));
 
         
-        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(EjecutarPaso(
+            "Muy bien. Ahora intenta agacharte presionando CTRL.",
+            1
+        ));
 
         
-        yield return MoveCameraTo(camNPCPos.position, camNPCPos.rotation);
-        StartStep();
+        yield return StartCoroutine(EjecutarPaso(
+            "Excelente. Acércate y recoge algun objeto presionando E.",
+            2
+        ));
+
+       
+        yield return StartCoroutine(EjecutarPaso(
+            "Ahora limpia la mesa usando la tecla C.",
+            3
+        ));
+
+        
+        yield return StartCoroutine(EjecutarPaso(
+            "Puedes ver tus cosas abriendo el inventario con TAB.",
+            4
+        ));
+
+        
+        yield return StartCoroutine(EjecutarPaso(
+            "Por último, puedes pausar el juego con ESC.",
+            5
+        ));
+
+        
+        tutorialText.text = "¡Tutorial Completado Faver! Te espero abajo.";
+        yield return new WaitForSeconds(3f);
+        tutorialText.text = "";
+        tutorialActive = false;
     }
 
-    void StartStep()
+    
+    IEnumerator EjecutarPaso(string textoInstruccion, int pasoIndice)
     {
-        waitingPlayerAction = false;
+        
+        player.enabledControl = false;
+        player.ResetMovementState(); 
+        player.cameraEnabled = false; 
+
+        yield return StartCoroutine(MoverCamara(npcLookTarget));
 
         
-        if (player != null) player.ResetTutorialFlags();
+        tutorialText.text = textoInstruccion + "\n(Presiona R para continuar)";
 
-        switch (currentStep)
+     
+        yield return null;
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.R));
+
+        
+        tutorialText.text = ""; 
+
+        
+        yield return StartCoroutine(VolverCamaraAJugador());
+
+        
+        player.cameraEnabled = true;
+        player.enabledControl = true;
+
+        
+        tutorialText.text = textoInstruccion;
+
+        bool accionCompletada = false;
+
+        
+        while (!accionCompletada)
         {
-            case 0:
-                tutorialText.text = "Muévete con W A S D.";
-                waitingPlayerAction = true;
-                break;
-
-            case 1:
-                tutorialText.text = "Agáchate presionando CTRL.";
-                waitingPlayerAction = true;
-                break;
-
-            case 2:
-                tutorialText.text = "Recoge un objeto presionando E (usa un objeto con tag \"Pickup\").";
-                waitingPlayerAction = true;
-                break;
-
-            case 3:
-                tutorialText.text = "Limpia la mesa usando C (o interactúa con una mesa con tag \"Table\").";
-                waitingPlayerAction = true;
-                break;
-
-            case 4:
-                tutorialText.text = "Abre tu inventario con TAB.";
-                waitingPlayerAction = true;
-                break;
-
-            case 5:
-                tutorialText.text = "Puedes pausar presionando ESC.";
-                waitingPlayerAction = true;
-                break;
-
-            default:
-                tutorialText.text = "¡Tutorial completado!";
-                waitingPlayerAction = false;
-                break;
+            switch (pasoIndice)
+            {
+                case 0: 
+                    if (player.newDirection.magnitude > 0.1f) accionCompletada = true;
+                    break;
+                case 1: 
+                    if (player.isCrouching) accionCompletada = true;
+                    break;
+                case 2: 
+                    if (player.HasPickedSomething()) accionCompletada = true;
+                    break;
+                case 3: 
+                    if (player.HasCleanedTable()) accionCompletada = true;
+                    break;
+                case 4: 
+                    if (PlayerMove.isInventoryOpen) accionCompletada = true;
+                    break;
+                case 5: 
+                    if (Input.GetKeyDown(KeyCode.Escape)) accionCompletada = true;
+                    break;
+            }
+            yield return null; 
         }
 
         
-        if (player != null) player.enabledControl = true;
+        tutorialText.text = "¡Bien hecho!";
+        yield return new WaitForSeconds(1f);
     }
 
-    void Update()
+    
+    IEnumerator MoverCamara(Transform objetivo)
     {
-        if (!TutorialStarted || !waitingPlayerAction || player == null) return;
+        Quaternion rotacionInicial = mainCam.rotation;
+        Quaternion rotacionFinal = Quaternion.LookRotation(objetivo.position - mainCam.position);
 
-        switch (currentStep)
-        {
-            case 0:
-                if (player.newDirection.magnitude > 0.1f)
-                    CompleteStep();
-                break;
-
-            case 1:
-                if (player.isCrouching)
-                    CompleteStep();
-                break;
-
-            case 2:
-                
-                if (player.HasPickedSomething())
-                    CompleteStep();
-                break;
-
-            case 3:
-                if (player.HasCleanedTable())
-                    CompleteStep();
-                break;
-
-            case 4:
-                if (PlayerMove.isInventoryOpen)
-                    CompleteStep();
-                break;
-
-            case 5:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                    CompleteStep();
-                break;
-        }
-    }
-
-    void CompleteStep()
-    {
-        waitingPlayerAction = false;
-        
-        if (player != null) player.enabledControl = false;
-        StartCoroutine(ReturnToPlayerThenContinue());
-    }
-
-    IEnumerator ReturnToPlayerThenContinue()
-    {
-        
-        yield return MoveCameraTo(camOriginalPos.position, camOriginalPos.rotation);
-
-        yield return new WaitForSeconds(waitAfterReturn);
-
-        
-        currentStep++;
-
-        if (currentStep <= 5)
-        {
-            
-            yield return MoveCameraTo(camNPCPos.position, camNPCPos.rotation);
-            StartStep();
-        }
-        else
-        {
-            
-            tutorialText.text = "";
-            if (player != null) player.enabledControl = true;
-        }
-    }
-
-    IEnumerator MoveCameraTo(Vector3 targetPos, Quaternion targetRot)
-    {
-        float t = 0f;
-        Vector3 startPos = mainCam.transform.position;
-        Quaternion startRot = mainCam.transform.rotation;
-        float duration = 1f / camMoveSpeed; // control sencillo
-        if (duration <= 0) duration = 0.1f;
-
+        float t = 0;
         while (t < 1f)
         {
-            t += Time.deltaTime / duration;
-            mainCam.transform.position = Vector3.Lerp(startPos, targetPos, Mathf.SmoothStep(0f, 1f, t));
-            mainCam.transform.rotation = Quaternion.Slerp(startRot, targetRot, Mathf.SmoothStep(0f, 1f, t));
+            t += Time.deltaTime * camRotateSpeed;
+            mainCam.rotation = Quaternion.Slerp(rotacionInicial, rotacionFinal, t);
             yield return null;
         }
+        mainCam.rotation = rotacionFinal;
+    }
 
-        mainCam.transform.position = targetPos;
-        mainCam.transform.rotation = targetRot;
+    
+    IEnumerator VolverCamaraAJugador()
+    {
+        Quaternion rotacionInicial = mainCam.rotation;
+        
+        Quaternion rotacionFinal = player.playerCameraPivot.rotation;
+
+        float t = 0;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * camRotateSpeed;
+            mainCam.rotation = Quaternion.Slerp(rotacionInicial, rotacionFinal, t);
+            yield return null;
+        }
+        
     }
 }
-

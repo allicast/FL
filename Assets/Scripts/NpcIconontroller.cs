@@ -10,6 +10,6 @@ public class NPCIconController : MonoBehaviour
     {
         if (tutorialManager == null) return;
 
-        icon.enabled = !tutorialManager.TutorialStarted;
+        icon.enabled = !tutorialManager.tutorialActive;
     }
 }
