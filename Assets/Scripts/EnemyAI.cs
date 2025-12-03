@@ -15,8 +15,15 @@ public class EnemyAI : MonoBehaviour
     public float patrolSpeed = 1.5f;
     public float chaseSpeed = 3.5f;
 
-    [Header("Audio")]
+    [Header("Audio Enemigo")]
+    public AudioSource walkAudio;
+    public AudioSource runAudio;
+    public AudioSource screamAudio;
     public AudioSource tensionAudio;
+
+    [Header("Audio Player (Ruido)")]
+    public float playerNoiseRadius = 8f;   // radio del ruido
+    public bool playerIsMakingNoise = false;
 
     [Header("Animaciones")]
     public Animator animator;
@@ -43,20 +50,60 @@ public class EnemyAI : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
+        HandlePlayerNoiseDetection();
         HandleAudio(distanceToPlayer);
 
         if (!attacking)
             HandleAI(distanceToPlayer);
     }
 
+    // -----------------------------------------------------------
+    // DETECCIÓN DE RUIDO DEL JUGADOR
+    // -----------------------------------------------------------
+    void HandlePlayerNoiseDetection()
+    {
+        if (!playerIsMakingNoise) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        // si el ruido entra en el radio, activar persecución
+        if (distance <= playerNoiseRadius)
+        {
+            chasing = true;
+        }
+    }
+
+    // -----------------------------------------------------------
+    // AUDIO DEL ENEMIGO (Corre, Camina, Grita y Música Tensa)
+    // -----------------------------------------------------------
     void HandleAudio(float distance)
     {
-        
+        // Audio de caminar
+        if (!chasing && !attacking)
+        {
+            if (agent.velocity.magnitude > 0.1f)
+            {
+                if (!walkAudio.isPlaying) walkAudio.Play();
+                runAudio.Stop();
+            }
+            else
+            {
+                walkAudio.Stop();
+            }
+        }
+
+        // Audio de correr
+        if (chasing && !attacking)
+        {
+            if (!runAudio.isPlaying) runAudio.Play();
+            walkAudio.Stop();
+        }
+
+        // Audio de tensión
         if (!chasing)
         {
             if (tensionAudio.isPlaying)
                 tensionAudio.Stop();
-
             return;
         }
 
@@ -66,21 +113,21 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-       
         if (!tensionAudio.isPlaying)
             tensionAudio.Play();
 
-        
         float volume = Mathf.Clamp01(1 - (distance / chaseRange));
         tensionAudio.volume = volume;
     }
 
-    
+    // -----------------------------------------------------------
+    // LÓGICA DE IA
+    // -----------------------------------------------------------
     void HandleAI(float distance)
     {
         if (chasing)
         {
-            agent.speed = chaseSpeed; 
+            agent.speed = chaseSpeed;
             agent.SetDestination(player.position);
             SetAnimation("run");
 
@@ -106,13 +153,16 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-   
+    // -----------------------------------------------------------
+    // ATAQUE (Grito)
+    // -----------------------------------------------------------
     System.Collections.IEnumerator AttackSequence()
     {
         attacking = true;
         agent.isStopped = true;
 
         animator.SetTrigger("Scream");
+        screamAudio.Play();   // ?? Sonido de grito
 
         yield return new WaitForSeconds(2f);
 
@@ -120,7 +170,9 @@ public class EnemyAI : MonoBehaviour
         attacking = false;
     }
 
-  
+    // -----------------------------------------------------------
+    // PATRULLA
+    // -----------------------------------------------------------
     void PatrolBehaviour()
     {
         agent.speed = patrolSpeed;
@@ -142,7 +194,9 @@ public class EnemyAI : MonoBehaviour
         currentPoint = (currentPoint + 1) % patrolPoints.Length;
     }
 
-    
+    // -----------------------------------------------------------
+    // ANIMACIONES
+    // -----------------------------------------------------------
     void SetAnimation(string state)
     {
         animator.SetBool("isWalking", state == "walk");
