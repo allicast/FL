@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // -----------------------------------------------------------
-    // DETECCIÓN DE RUIDO DEL JUGADOR
+    // DETECCIÃ“N DE RUIDO DEL JUGADOR
     // -----------------------------------------------------------
     void HandlePlayerNoiseDetection()
     {
@@ -66,7 +66,7 @@ public class EnemyAI : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        // si el ruido entra en el radio, activar persecución
+        // si el ruido entra en el radio, activar persecuciÃ³n
         if (distance <= playerNoiseRadius)
         {
             chasing = true;
@@ -74,7 +74,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // -----------------------------------------------------------
-    // AUDIO DEL ENEMIGO (Corre, Camina, Grita y Música Tensa)
+    // AUDIO DEL ENEMIGO (Corre, Camina, Grita y MÃºsica Tensa)
     // -----------------------------------------------------------
     void HandleAudio(float distance)
     {
@@ -99,7 +99,7 @@ public class EnemyAI : MonoBehaviour
             walkAudio.Stop();
         }
 
-        // Audio de tensión
+        // Audio de tensiÃ³n
         if (!chasing)
         {
             if (tensionAudio.isPlaying)
@@ -121,7 +121,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // -----------------------------------------------------------
-    // LÓGICA DE IA
+    // LÃ“GICA DE IA
     // -----------------------------------------------------------
     void HandleAI(float distance)
     {
@@ -162,7 +162,7 @@ public class EnemyAI : MonoBehaviour
         agent.isStopped = true;
 
         animator.SetTrigger("Scream");
-        screamAudio.Play();   // ?? Sonido de grito
+        screamAudio.Play();   // ðŸ”¥ Sonido de grito
 
         yield return new WaitForSeconds(2f);
 
