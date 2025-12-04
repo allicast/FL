@@ -12,9 +12,9 @@ public class TutorialManager : MonoBehaviour
     [Header("Configuración")]
     public float camRotateSpeed = 3f;
 
-    // Estado del tutorial
+    
     public bool tutorialActive = false;
-    private int currentStep = 0;
+   
     private Transform mainCam;
 
     void Start()
