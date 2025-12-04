@@ -907,110 +907,83 @@ MonoBehaviour:
   lines:
   - characterName: ???
     text: ...
-    characterSprite: {fileID: 21300000, guid: 84888e4b7862a5849938216e72a85046, type: 3}
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: ???
-    text: "Faver? Hey peque\xF1a?"
-    characterSprite: {fileID: 21300000, guid: 84888e4b7862a5849938216e72a85046, type: 3}
+    text: "Faver? Despierta, estas so\xF1ando"
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Faver
     text: AAHH!!
-    characterSprite: {fileID: 21300000, guid: 24e934fa4d797e946aaf2409614bff2d, type: 3}
+    characterSprite: {fileID: 21300000, guid: 2072ec66455b72d449e8bb0bcb8780e1, type: 3}
     frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
     side: 1
-  - characterName: ???
-    text: "Ey, ey\u2026 tranquila ni\xF1a. Ya despertaste. Solo fue un sue\xF1o."
-    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
+  - characterName: Faver
+    text: Alex...Hermano!!
+    characterSprite: {fileID: 21300000, guid: 2072ec66455b72d449e8bb0bcb8780e1, type: 3}
+    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
+    side: 1
+  - characterName: Alex
+    text: "...Ahora que so\xF1aste?"
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Faver
-    text: Alex...Hermanito!!
-    characterSprite: {fileID: 21300000, guid: 0823bc1555d9c1349a1c607cc4c0b694, type: 3}
+    text: "Era de pap\xE1! veia como...le hacian da\xF1o"
+    characterSprite: {fileID: 21300000, guid: 2072ec66455b72d449e8bb0bcb8780e1, type: 3}
     frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
     side: 1
   - characterName: Alex
-    text: ...Otra pesadilla?
-    characterSprite: {fileID: 21300000, guid: 3ca0fab4f7f112e419c107425a52bc12, type: 3}
+    text: "Shh\u2026 respira."
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
+    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
+    side: 0
+  - characterName: Alex
+    text: "No fue real, Faver. Fue solo una pesadilla. Pap\xE1 est\xE1 bien. y yo
+      estoy contigo"
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Faver
-    text: "Se sent\xEDa tan real\u2026 Hab\xEDa sombras\u2026 y voces\u2026"
-    characterSprite: {fileID: 21300000, guid: 0823bc1555d9c1349a1c607cc4c0b694, type: 3}
+    text: P-pero...
+    characterSprite: {fileID: 21300000, guid: 760c5e16b302a5b4f9e772cb0d94814f, type: 3}
     frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
     side: 1
   - characterName: Alex
-    text: "Lo s\xE9 peque\xF1a. Te escuch\xE9 desde el pasillo. Pero m\xEDrame, ya
-      pas\xF3. Est\xE1s aqu\xED, en tu cuarto, conmigo."
-    characterSprite: {fileID: 21300000, guid: e539702e5355c974ea391802ab083324, type: 3}
-    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
-    side: 0
-  - characterName: Faver
-    text: "Escuch\xE9 ruidos\u2026 gritos\u2026 y despu\xE9s, pap\xE1\u2026 no recuerdo
-      bien\u2026 todo se volvi\xF3 oscuro."
-    characterSprite: {fileID: 21300000, guid: 24e934fa4d797e946aaf2409614bff2d, type: 3}
-    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
-    side: 1
-  - characterName: Alex
-    text: "Shh\u2026 respira conmigo."
-    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
+    text: "Vamos no pienses m\xE1s en eso."
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Alex
-    text: "No fue real, Faver. Fue solo una pesadilla. Pap\xE1 est\xE1 bien."
-    characterSprite: {fileID: 21300000, guid: e539702e5355c974ea391802ab083324, type: 3}
-    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
-    side: 0
-  - characterName: Faver
-    text: P-pero... realmente siento como si muriera...
-    characterSprite: {fileID: 21300000, guid: 8d913fb57fc031646b8ee3d122224184, type: 3}
-    frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
-    side: 1
-  - characterName: Alex
-    text: Las pesadillas hacen eso.
-    characterSprite: {fileID: 21300000, guid: 84888e4b7862a5849938216e72a85046, type: 3}
-    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
-    side: 0
-  - characterName: Alex
-    text: "Anda, lev\xE1ntate. Pap\xE1 nos necesita abajo en el sal\xF3n principal."
-    characterSprite: {fileID: 21300000, guid: 3ca0fab4f7f112e419c107425a52bc12, type: 3}
+    text: "Levantate, tenemos que ir con pap\xE1 ahora."
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Faver
     text: "\xBFPap\xE1? \xBFPas\xF3 algo?"
-    characterSprite: {fileID: 21300000, guid: f4951c1105a4d8446b1faa412085063e, type: 3}
+    characterSprite: {fileID: 21300000, guid: 0a1901457a6ee474e8460ced5bdefe45, type: 3}
     frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
     side: 1
   - characterName: Alex
-    text: "No lo s\xE9, pero dijo que era importante."
-    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
-    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
-    side: 0
-  - characterName: Alex
-    text: "Y\u2026 antes de que bajes\u2026 quiz\xE1 deber\xEDas ordenar un poco
-      tu cuarto.\nYa sabes c\xF3mo se pone si ve todo tirado por ah\xED."
-    characterSprite: {fileID: 21300000, guid: 3ca0fab4f7f112e419c107425a52bc12, type: 3}
+    text: Si supiera ya te lo habria dicho...
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Faver
-    text: "Ugh\u2026 bien\u2026 ya voy a organizar."
-    characterSprite: {fileID: 21300000, guid: 1a48a1c4d68358a408de38f3230c0d02, type: 3}
+    text: OYE!
+    characterSprite: {fileID: 21300000, guid: 760c5e16b302a5b4f9e772cb0d94814f, type: 3}
     frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
     side: 1
   - characterName: Alex
-    text: Te espero abajo.
-    characterSprite: {fileID: 21300000, guid: 11368f54509baa9409661adc38360bd6, type: 3}
-    frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
-    side: 0
-  - characterName: Alex
-    text: "No tardes, \xBFs\xED?"
-    characterSprite: {fileID: 21300000, guid: a9c69fa78d035ec4cab5fa91d4051ab2, type: 3}
+    text: Levantate, antes de bajar te quiero decir unas cuantas cosas
+    characterSprite: {fileID: 21300000, guid: 37271f8d3e451e849922ea78d241fb09, type: 3}
     frameSprite: {fileID: 21300000, guid: 59557f8523f08c1409039e7c0e06e6c6, type: 3}
     side: 0
   - characterName: Faver
-    text: Prometido.
-    characterSprite: {fileID: 21300000, guid: 91d71aae9021fad4fa6ce8aac3a99a7a, type: 3}
+    text: Okay!
+    characterSprite: {fileID: 21300000, guid: d635212ad99a0204e84d5c266a5d102f, type: 3}
     frameSprite: {fileID: 21300000, guid: cd953e0af28769544a84f6b80f0da5d7, type: 3}
     side: 1
 --- !u!4 &398036573
@@ -1823,7 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
