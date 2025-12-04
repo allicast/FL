@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class EnemyAI : MonoBehaviour
     private int currentPoint = 0;
     private bool chasing = false;
     private bool attacking = false;
+
+    [Header("Game Over")]
+    public GameObject gameOverPanel;
+    public float gameOverDelay = 1.0f;
 
     void Start()
     {
@@ -161,13 +166,35 @@ public class EnemyAI : MonoBehaviour
         attacking = true;
         agent.isStopped = true;
 
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); 
+
+        // Animación y Audio
         animator.SetTrigger("Scream");
-        screamAudio.Play();   // 🔥 Sonido de grito
+        screamAudio.Play();
 
         yield return new WaitForSeconds(2f);
 
-        agent.isStopped = false;
-        attacking = false;
+
+        // 1. Ocultar el enemigo (opcional)
+        // gameObject.SetActive(false); 
+
+        yield return new WaitForSeconds(gameOverDelay);
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // -----------------------------------------------------------
