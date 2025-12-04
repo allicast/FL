@@ -4,34 +4,35 @@ using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
 {
-    public AudioMixer audioMixer;
-    public Slider sliderMusic;
-    public Slider sliderSFX;
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
+    public Slider musicSlider;
+    public Slider sfxSlider;
 
     void Start()
     {
-       
-        float music = PlayerPrefs.GetFloat("musicVolume", 0.75f);
-        float sfx = PlayerPrefs.GetFloat("sfxVolume", 0.75f);
+        // Cargar valores guardados
+        musicSlider.value = PlayerPrefs.GetFloat("musicVol", 1f);
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVol", 1f);
 
-        sliderMusic.value = music;
-        sliderSFX.value = sfx;
+        // Aplicarlos
+        musicSource.volume = musicSlider.value;
+        sfxSource.volume = sfxSlider.value;
 
-        SetMusicVolume(music);
-        SetSFXVolume(sfx);
+        // Listener
+        musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
-    public void SetMusicVolume(float value)
+    public void SetMusicVolume(float v)
     {
-        float dB = Mathf.Log10(value <= 0 ? 0.001f : value) * 20f;
-        audioMixer.SetFloat("MusicVolume", dB);
-        PlayerPrefs.SetFloat("musicVolume", value);
+        musicSource.volume = v;
+        PlayerPrefs.SetFloat("musicVol", v);
     }
 
-    public void SetSFXVolume(float value)
+    public void SetSFXVolume(float v)
     {
-        float dB = Mathf.Log10(value <= 0 ? 0.001f : value) * 20f;
-        audioMixer.SetFloat("SFXVolume", dB);
-        PlayerPrefs.SetFloat("sfxVolume", value);
+        sfxSource.volume = v;
+        PlayerPrefs.SetFloat("sfxVol", v);
     }
 }
