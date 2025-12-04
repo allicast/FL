@@ -1340,7 +1340,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6700a158f74c2034d819d56be137df57, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4188,6 +4188,7 @@ GameObject:
   - component: {fileID: 1064713405}
   - component: {fileID: 1064713404}
   - component: {fileID: 1064713403}
+  - component: {fileID: 1064713407}
   m_Layer: 0
   m_Name: RoomToHall
   m_TagString: Untagged
@@ -4344,6 +4345,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1064713407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064713402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c467ce39d9e0b1e45b92dd8ead9f28c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1708682961}
 --- !u!1 &1072947370
 GameObject:
   m_ObjectHideFlags: 0
@@ -7227,6 +7241,10 @@ PrefabInstance:
     - target: {fileID: 2703569443733104065, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2703569443733104065, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2960747627248167466, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
