@@ -1,82 +1,68 @@
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("UI")]
     public GameObject pausePanel;
-    public Button resumeButton;
-    public Button quitButton;
+    public GameObject crosshair;
 
-    bool isPaused = false;
-    CursorLockMode previousLockState;
-    bool previousCursorVisible;
-
-    void Start()
-    {
-
-        if (pausePanel != null) pausePanel.SetActive(false);
-
-
-        if (resumeButton != null) resumeButton.onClick.AddListener(ResumeGame);
-        if (quitButton != null) quitButton.onClick.AddListener(QuitToMainMenu);
-
-
-        previousLockState = Cursor.lockState;
-        previousCursorVisible = Cursor.visible;
-    }
+    private bool isPaused = false;
 
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused) ResumeGame();
-            else PauseGame();
+            TogglePause();
         }
     }
 
-    public void PauseGame()
+    public void TogglePause()
     {
-        isPaused = true;
+        isPaused = !isPaused;
 
+        if (isPaused)
+        {
+            // Activar pausa
+            Time.timeScale = 0f;
+            pausePanel.SetActive(true);
 
-        if (pausePanel != null) pausePanel.SetActive(true);
+            // Activar cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
+            // Ocultar mira
+            if (crosshair != null)
+                crosshair.SetActive(false);
+        }
+        else
+        {
+            // Quitar pausa
+            Time.timeScale = 1f;
+            pausePanel.SetActive(false);
 
-        Time.timeScale = 0f;
+            // Bloquear cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
-
-
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+            // Mostrar mira
+            if (crosshair != null)
+                crosshair.SetActive(true);
+        }
     }
 
     public void ResumeGame()
     {
-        isPaused = false;
-
-        if (pausePanel != null) pausePanel.SetActive(false);
-
-        Time.timeScale = 1f;
-        AudioListener.pause = false;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (isPaused)
+        {
+            TogglePause();
+        }
     }
 
-    public void QuitToMainMenu()
+    // 🚪 NUEVA FUNCIÓN: SALIR A LA ESCENA "UI"
+    public void ExitGame()
     {
-
-        Time.timeScale = 1f;
-        AudioListener.pause = false;
-
-
+        Time.timeScale = 1f; // Asegura que la escena nueva no quede pausada
         SceneManager.LoadScene("UI");
     }
-
-
 }
 

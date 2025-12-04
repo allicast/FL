@@ -93,6 +93,10 @@ public class EnemyCinematic : MonoBehaviour
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;   // opcional: pausa el juego
+
         AudioListener.volume = 0f;
 
         if (gameOverSound != null)

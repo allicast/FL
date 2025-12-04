@@ -42,6 +42,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             bool newState = !inventoryPanel.activeSelf;
+
             inventoryPanel.SetActive(newState);
             PlayerMove.isInventoryOpen = newState;
 
@@ -84,6 +85,7 @@ public class InventoryManager : MonoBehaviour
         {
             GameObject slot = Instantiate(itemSlotPrefab, itemsParent);
             ItemSlotUI slotUI = slot.GetComponent<ItemSlotUI>();
+
             if (slotUI != null)
                 slotUI.Setup(item.image, item.name);
         }
@@ -95,7 +97,9 @@ public class InventoryItem
 {
     public string name;
     public Sprite image;
-    [TextArea] public string useText;
+
+    [TextArea]
+    public string useText;
 
     public InventoryItem(string name, Sprite image, string useText)
     {
@@ -104,3 +108,4 @@ public class InventoryItem
         this.useText = useText;
     }
 }
+
