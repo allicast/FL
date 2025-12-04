@@ -9,9 +9,10 @@ public class MainMenu : MonoBehaviour
     public GameObject blackScreenPanel;
 
     [Header("Audio")]
-    public AudioSource musicManager;      // AudioSource del menú
-    public AudioClip transitionSound;     // sonido/canción para el momento en negro
-    public float transitionDuration = 3f; // segundos antes de cambiar de escena
+    public AudioSource musicManager;           // Música del menú
+    public AudioSource transitionSound;        // Sonido de transición
+    public AudioSource[] sfxSources;           // <<< Agregado: todos los SFX del menú
+    public float transitionDuration = 3f;
 
     public void PlayGame()
     {
@@ -20,27 +21,34 @@ public class MainMenu : MonoBehaviour
 
     private System.Collections.IEnumerator PlayTransition()
     {
-        // 1. Ocultar todo el menú
+        // 1. Ocultar menú
         MainMenuCanvas.SetActive(false);
 
-        // 2. Pantalla negra ON
+        // 2. Pantalla negra
         blackScreenPanel.SetActive(true);
 
         // 3. Detener música del menú
         if (musicManager != null)
             musicManager.Stop();
 
-        // 4. Reproducir sonido de transición
-        if (transitionSound != null && musicManager != null)
+        // 4. Detener TODOS los SFX
+        if (sfxSources != null)
         {
-            musicManager.clip = transitionSound;
-            musicManager.Play();
+            foreach (AudioSource sfx in sfxSources)
+            {
+                if (sfx != null)
+                    sfx.Stop();
+            }
         }
 
-        // 5. Esperar X segundos
+        // 5. Reproducir sonido de transición
+        if (transitionSound != null)
+            transitionSound.Play();
+
+        // 6. Esperar
         yield return new WaitForSeconds(transitionDuration);
 
-        // 6. Cargar la siguiente escena
+        // 7. Cargar escena
         SceneManager.LoadScene("Cinematica");
     }
 
