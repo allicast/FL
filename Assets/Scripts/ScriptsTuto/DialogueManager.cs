@@ -49,6 +49,9 @@ public class DialogueManager : MonoBehaviour
     public float typeSpeed = 0.04f;
     public DialogueLine[] lines;
 
+    public AudioSource typeSound;
+
+
     private int index = 0;
     private bool isTyping = false;
     private bool skip = false;
@@ -135,6 +138,11 @@ public class DialogueManager : MonoBehaviour
             }
 
             dialogText.text += c;
+
+            // SONIDO SIMPLE
+            if (typeSound != null)
+                typeSound.Play();
+
             yield return new WaitForSeconds(typeSpeed);
         }
 
