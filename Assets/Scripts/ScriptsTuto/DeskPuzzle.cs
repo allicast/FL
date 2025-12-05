@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class DeskPuzzle : MonoBehaviour
+public class DeskPuzzle : BaseInteractable 
 {
     [Header("Referencias del Puzzle")]
     public GameObject puzzlePanel;
@@ -29,17 +29,17 @@ public class DeskPuzzle : MonoBehaviour
         clickButton.onClick.AddListener(OnClickButton);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C) && !isPuzzleActive)
-        {
-            float distance = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
-            if (distance <= 3f)
-            {
-                StartPuzzle();
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.C) && !isPuzzleActive)
+    //    {
+    //        float distance = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
+    //        if (distance <= 3f)
+    //        {
+    //            StartPuzzle();
+    //        }
+    //    }
+    //}
 
     void StartPuzzle()
     {
@@ -113,5 +113,13 @@ public class DeskPuzzle : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public override void Interact()
+    {
+        if (!isPuzzleActive)
+        {
+            StartPuzzle();
+        }
     }
 }
