@@ -8,26 +8,33 @@ public class EnemyCinematic : MonoBehaviour
     public float cinematicDuration = 2f;
     public bool lockPlayerControl = true;
 
+    [Header("Cámaras")]
+    public Camera playerCamera;
+    public Camera cinematicCamera;
+
     [Header("Game Over")]
     public GameObject gameOverPanel;
     public AudioSource gameOverSound;
 
     [Header("Jugador")]
-    public GameObject playerModel;   // 👈 AÑADIDO: el modelo 3D de tu jugador
+    public GameObject playerModel;
 
-    private Camera mainCam;
     private bool cinematicActive = false;
     private float cinematicTimer = 0f;
 
     private void Start()
     {
-        mainCam = Camera.main;
+        if (cinematicCamera == null)
+            cinematicCamera = Camera.main;
 
         if (cinematicPoint == null)
             Debug.LogWarning("EnemyCinematic: No se asignó el CinematicPoint en el inspector.");
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
+
+        if (cinematicCamera != null)
+            cinematicCamera.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,11 +52,19 @@ public class EnemyCinematic : MonoBehaviour
         cinematicActive = true;
         cinematicTimer = 0f;
 
-        // 👈 AÑADIDO: ocultar el modelo 3D del jugador
+        // 1. Desactivar cámara del jugador
+        if (playerCamera != null)
+            playerCamera.gameObject.SetActive(false);
+
+        // 2. Activar cámara cinemática
+        if (cinematicCamera != null)
+            cinematicCamera.gameObject.SetActive(true);
+
+        // 4. Ocultar modelo jugador
         if (playerModel != null)
             playerModel.SetActive(false);
 
-        // Desactivar control del jugador
+        // 5. Desactivar control jugador
         if (lockPlayerControl)
         {
             var controller = player.GetComponent<MonoBehaviour>();
@@ -57,29 +72,29 @@ public class EnemyCinematic : MonoBehaviour
                 controller.enabled = false;
         }
 
-        // Detener IA del enemigo si existe
+        // 6. Detener IA enemigo
         var enemyAI = GetComponent<EnemyAI>();
         if (enemyAI != null && enemyAI.agent != null)
-        {
             enemyAI.agent.ResetPath();
-        }
     }
 
     private void LateUpdate()
     {
-        if (!cinematicActive || mainCam == null || cinematicPoint == null)
+        if (!cinematicActive || cinematicCamera == null)
             return;
 
         cinematicTimer += Time.deltaTime;
 
-        mainCam.transform.position = Vector3.Lerp(
-            mainCam.transform.position,
+        cinematicCamera.transform.position = Vector3.Lerp(
+            cinematicCamera.transform.position,
             cinematicPoint.position,
             Time.deltaTime * cameraMoveSpeed
         );
 
-        mainCam.transform.LookAt(transform.position + Vector3.up * 1.0f);
+        // Hacer que mire al enemigo
+        cinematicCamera.transform.LookAt(transform.position + Vector3.up * 1.0f);
 
+        // Finalizar cinemática
         if (cinematicTimer >= cinematicDuration)
         {
             EndCinematic();
@@ -95,7 +110,7 @@ public class EnemyCinematic : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Time.timeScale = 0f;   // opcional: pausa el juego
+        Time.timeScale = 0f;
 
         AudioListener.volume = 0f;
 
@@ -104,7 +119,6 @@ public class EnemyCinematic : MonoBehaviour
             gameOverSound.ignoreListenerVolume = true;
             gameOverSound.Play();
         }
-
-        // No es necesario volver a activar el jugador porque es Game Over
     }
 }
+

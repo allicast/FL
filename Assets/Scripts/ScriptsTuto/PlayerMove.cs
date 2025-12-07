@@ -225,7 +225,7 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
 
-        currentObject.OnInteract();
+        //currentObject.OnInteract();//
 
         yield return new WaitForSeconds(5.5f);
         isInteracting = false;

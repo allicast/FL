@@ -11,6 +11,9 @@ public class InventoryManager : MonoBehaviour
     public Transform itemsParent;
     public GameObject itemSlotPrefab;
 
+    [Header("Referencias del Jugador")]
+    public MonoBehaviour playerController;   // <-- arrastra aquí tu script de cámara/movimiento
+
     [Header("UI Adicional")]
     public GameObject crosshair;
 
@@ -48,7 +51,13 @@ public class InventoryManager : MonoBehaviour
 
             if (newState)
             {
+                // ❄ Congela TODO
                 Time.timeScale = 0f;
+
+                // ❄ Congelar cámara y movimiento
+                if (playerController != null)
+                    playerController.enabled = false;
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -57,7 +66,13 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
+                // ▶ Reanudar
                 Time.timeScale = 1f;
+
+                // ▶ Activar cámara y movimiento
+                if (playerController != null)
+                    playerController.enabled = true;
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
@@ -77,9 +92,7 @@ public class InventoryManager : MonoBehaviour
     public void UpdateUI()
     {
         foreach (Transform child in itemsParent)
-        {
             Destroy(child.gameObject);
-        }
 
         foreach (var item in items)
         {
@@ -97,9 +110,7 @@ public class InventoryItem
 {
     public string name;
     public Sprite image;
-
-    [TextArea]
-    public string useText;
+    [TextArea] public string useText;
 
     public InventoryItem(string name, Sprite image, string useText)
     {

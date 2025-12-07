@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class DeskPuzzle : BaseInteractable 
+public class DeskPuzzle : BaseInteractable
 {
     [Header("Referencias del Puzzle")]
     public GameObject puzzlePanel;
@@ -28,18 +28,6 @@ public class DeskPuzzle : BaseInteractable
         progressBar.value = 0f;
         clickButton.onClick.AddListener(OnClickButton);
     }
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.C) && !isPuzzleActive)
-    //    {
-    //        float distance = Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position);
-    //        if (distance <= 3f)
-    //        {
-    //            StartPuzzle();
-    //        }
-    //    }
-    //}
 
     void StartPuzzle()
     {
