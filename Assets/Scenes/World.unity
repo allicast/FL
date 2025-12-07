@@ -3500,14 +3500,14 @@ Transform:
   m_GameObject: {fileID: 681739310}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 3.19, z: 3.13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -21.3, y: 2.0725, z: -12.183333}
+  m_LocalScale: {x: 0.8333333, y: 0.8333333, z: 0.8333333}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 266684854}
   - {fileID: 2030879473}
   - {fileID: 1996175974}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1720090653}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &682640697 stripped
 GameObject:
@@ -5356,7 +5356,7 @@ GameObject:
   - component: {fileID: 1064713405}
   - component: {fileID: 1064713407}
   m_Layer: 0
-  m_Name: RoomToHall
+  m_Name: ActiveEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8157,7 +8157,9 @@ MonoBehaviour:
   inventoryPanel: {fileID: 774967021}
   itemsParent: {fileID: 455681798}
   itemSlotPrefab: {fileID: 4572636502686033378, guid: acef75e6246acf545a02356b44b6b216, type: 3}
-  playerController: {fileID: 1434465663}
+  scriptsToFreeze:
+  - {fileID: 1720090654}
+  - {fileID: 1434465663}
   crosshair: {fileID: 1352702256}
   items: []
 --- !u!4 &1681626495
@@ -8953,7 +8955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3686341392946368938, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.855
+      value: 0.703
       objectReference: {fileID: 0}
     - target: {fileID: 3686341392946368938, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9101,7 +9103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5263668959972811615, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       propertyPath: chaseSpeed
-      value: 2.92
+      value: 5.3
       objectReference: {fileID: 0}
     - target: {fileID: 5263668959972811615, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       propertyPath: attackRange
@@ -9447,6 +9449,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3686341392946368938, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       insertIndex: -1
       addedObject: {fileID: 419574076}
+    - targetCorrespondingSourceObject: {fileID: 3686341392946368938, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 681739311}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2703569443733104065, guid: ba2fac479272d674e8c78a46a4faad42, type: 3}
       insertIndex: -1
@@ -12043,7 +12048,6 @@ SceneRoots:
   - {fileID: 201093754}
   - {fileID: 1064713406}
   - {fileID: 1720090652}
-  - {fileID: 681739311}
   - {fileID: 735588841}
   - {fileID: 1422997517}
   - {fileID: 893634979}

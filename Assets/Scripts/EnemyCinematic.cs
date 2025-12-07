@@ -2,6 +2,8 @@
 
 public class EnemyCinematic : MonoBehaviour
 {
+    public static bool isGameOver = false; // 🔥 NUEVO
+
     [Header("Cinemática")]
     public Transform cinematicPoint;
     public float cameraMoveSpeed = 3f;
@@ -24,6 +26,8 @@ public class EnemyCinematic : MonoBehaviour
 
     private void Start()
     {
+        EnemyCinematic.isGameOver = false; // Reset al iniciar escena
+
         if (cinematicCamera == null)
             cinematicCamera = Camera.main;
 
@@ -52,19 +56,15 @@ public class EnemyCinematic : MonoBehaviour
         cinematicActive = true;
         cinematicTimer = 0f;
 
-        // 1. Desactivar cámara del jugador
         if (playerCamera != null)
             playerCamera.gameObject.SetActive(false);
 
-        // 2. Activar cámara cinemática
         if (cinematicCamera != null)
             cinematicCamera.gameObject.SetActive(true);
 
-        // 4. Ocultar modelo jugador
         if (playerModel != null)
             playerModel.SetActive(false);
 
-        // 5. Desactivar control jugador
         if (lockPlayerControl)
         {
             var controller = player.GetComponent<MonoBehaviour>();
@@ -72,7 +72,6 @@ public class EnemyCinematic : MonoBehaviour
                 controller.enabled = false;
         }
 
-        // 6. Detener IA enemigo
         var enemyAI = GetComponent<EnemyAI>();
         if (enemyAI != null && enemyAI.agent != null)
             enemyAI.agent.ResetPath();
@@ -91,10 +90,8 @@ public class EnemyCinematic : MonoBehaviour
             Time.deltaTime * cameraMoveSpeed
         );
 
-        // Hacer que mire al enemigo
         cinematicCamera.transform.LookAt(transform.position + Vector3.up * 1.0f);
 
-        // Finalizar cinemática
         if (cinematicTimer >= cinematicDuration)
         {
             EndCinematic();
@@ -105,11 +102,15 @@ public class EnemyCinematic : MonoBehaviour
     {
         cinematicActive = false;
 
+        // 🟥 Activar modo Game Over
+        isGameOver = true;
+
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
         Time.timeScale = 0f;
 
         AudioListener.volume = 0f;
@@ -121,4 +122,5 @@ public class EnemyCinematic : MonoBehaviour
         }
     }
 }
+
 

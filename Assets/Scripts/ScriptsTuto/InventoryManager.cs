@@ -11,8 +11,8 @@ public class InventoryManager : MonoBehaviour
     public Transform itemsParent;
     public GameObject itemSlotPrefab;
 
-    [Header("Referencias del Jugador")]
-    public MonoBehaviour playerController;   // <-- arrastra aquí tu script de cámara/movimiento
+    [Header("Scripts que se congelarán")]
+    public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
 
     [Header("UI Adicional")]
     public GameObject crosshair;
@@ -51,13 +51,17 @@ public class InventoryManager : MonoBehaviour
 
             if (newState)
             {
-                // ❄ Congela TODO
+                // ❄ CONGELAR JUEGO
                 Time.timeScale = 0f;
 
-                // ❄ Congelar cámara y movimiento
-                if (playerController != null)
-                    playerController.enabled = false;
+                // ❄ Congelar scripts
+                foreach (var script in scriptsToFreeze)
+                    if (script != null) script.enabled = false;
 
+                // ❄ Congelar TODO el audio
+                AudioListener.pause = true;
+
+                // Mostrar cursor
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -66,13 +70,17 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                // ▶ Reanudar
+                // ▶ REANUDAR JUEGO
                 Time.timeScale = 1f;
 
-                // ▶ Activar cámara y movimiento
-                if (playerController != null)
-                    playerController.enabled = true;
+                // ▶ Reactivar scripts
+                foreach (var script in scriptsToFreeze)
+                    if (script != null) script.enabled = true;
 
+                // ▶ Reanudar el audio
+                AudioListener.pause = false;
+
+                // Ocultar cursor
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
