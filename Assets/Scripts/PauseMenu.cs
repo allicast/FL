@@ -1,6 +1,7 @@
 ﻿using StarterAssets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject crosshair;
     private bool isPaused = false;
 
-    // Aquí guardamos una referencia al script de la cámara
     public ThirdPersonController playerController;
+    public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
 
     void Update()
     {
@@ -25,41 +26,47 @@ public class PauseMenu : MonoBehaviour
 
         if (isPaused)
         {
-            // Activar pausa
             Time.timeScale = 0f;
             pausePanel.SetActive(true);
 
-            // Desactivar el movimiento de la cámara y jugador
+            // Congelar jugador
             if (playerController != null)
-            {
-                playerController.enabled = false; // Desactivar el script del controlador del jugador
-            }
+                playerController.enabled = false;
+
+            // Congelar otros scripts
+            foreach (var script in scriptsToFreeze)
+                if (script != null) script.enabled = false;
+
+            // Pausar TODOS los sonidos
+            AudioListener.pause = true;
 
             // Activar cursor
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            // Ocultar mira
             if (crosshair != null)
                 crosshair.SetActive(false);
         }
         else
         {
-            // Quitar pausa
             Time.timeScale = 1f;
             pausePanel.SetActive(false);
 
-            // Activar el movimiento de la cámara y jugador
+            // Activar jugador
             if (playerController != null)
-            {
-                playerController.enabled = true; // Reactivar el script del controlador del jugador
-            }
+                playerController.enabled = true;
+
+            // Reactivar scripts
+            foreach (var script in scriptsToFreeze)
+                if (script != null) script.enabled = true;
+
+            // Reanudar TODOS los sonidos
+            AudioListener.pause = false;
 
             // Bloquear cursor
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            // Mostrar mira
             if (crosshair != null)
                 crosshair.SetActive(true);
         }
@@ -68,16 +75,15 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         if (isPaused)
-        {
             TogglePause();
-        }
     }
 
-    // 🚪 NUEVA FUNCIÓN: SALIR A LA ESCENA "UI"
     public void ExitGame()
     {
-        Time.timeScale = 1f; // Asegura que la escena nueva no quede pausada
+        Time.timeScale = 1f;
+        AudioListener.pause = false; // por seguridad
         SceneManager.LoadScene("UI");
     }
 }
+
 
