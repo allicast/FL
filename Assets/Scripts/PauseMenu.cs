@@ -1,82 +1,154 @@
+﻿using StarterAssets;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("UI")]
     public GameObject pausePanel;
-    public Button resumeButton;
-    public Button quitButton;
+    public GameObject crosshair;
+    private bool isPaused = false;
 
-    bool isPaused = false;
-    CursorLockMode previousLockState;
-    bool previousCursorVisible;
+    public GameObject settingsPanel;
+    public GameObject controlsPanel;
+    public GameObject soundPanel;
 
-    void Start()
-    {
-
-        if (pausePanel != null) pausePanel.SetActive(false);
-
-
-        if (resumeButton != null) resumeButton.onClick.AddListener(ResumeGame);
-        if (quitButton != null) quitButton.onClick.AddListener(QuitToMainMenu);
-
-
-        previousLockState = Cursor.lockState;
-        previousCursorVisible = Cursor.visible;
-    }
+    public ThirdPersonController playerController;
+    public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !EnemyCinematic.isGameOver)
         {
-            if (isPaused) ResumeGame();
-            else PauseGame();
+            TogglePause();
         }
     }
 
-    public void PauseGame()
+    public void TogglePause()
     {
-        isPaused = true;
+        isPaused = !isPaused;
 
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            pausePanel.SetActive(true);
 
-        if (pausePanel != null) pausePanel.SetActive(true);
+            // Congelar jugador
+            if (playerController != null)
+                playerController.enabled = false;
 
+            // Congelar otros scripts
+            foreach (var script in scriptsToFreeze)
+                if (script != null) script.enabled = false;
 
-        Time.timeScale = 0f;
+            settingsPanel.SetActive(false);
+            controlsPanel.SetActive(false);
+            soundPanel.SetActive(false);
 
+            // Pausar TODOS los sonidos
+            AudioListener.pause = true;
 
+            // Activar cursor
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
+            if (crosshair != null)
+                crosshair.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            pausePanel.SetActive(false);
 
+            // Activar jugador
+            if (playerController != null)
+                playerController.enabled = true;
+
+            // Reactivar scripts
+            foreach (var script in scriptsToFreeze)
+                if (script != null) script.enabled = true;
+
+            // Reanudar TODOS los sonidos
+            AudioListener.pause = false;
+
+            // Ocultar cursor (lo que querías)
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            if (crosshair != null)
+                crosshair.SetActive(true);
+
+            pausePanel.SetActive(false);
+            settingsPanel.SetActive(false);
+            controlsPanel.SetActive(false);
+            soundPanel.SetActive(false);
+        }
+    }
+
+    public void OpenControls()
+    {
+        pausePanel.SetActive(false);
+        settingsPanel.SetActive(false);
+
+        controlsPanel.SetActive(true);
+        soundPanel.SetActive(false);
+
+        // Cursor visible para este panel
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void OpenSound()
+    {
+        pausePanel.SetActive(false);
+        settingsPanel.SetActive(false);
+
+        soundPanel.SetActive(true);
+        controlsPanel.SetActive(false);
+
+        // Cursor visible para este panel
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void BackToPause()
+    {
+        pausePanel.SetActive(true);
+
+        settingsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+        soundPanel.SetActive(false);
+
+        // Cursor visible en el menú
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void BackToSettings()
+    {
+        controlsPanel.SetActive(false);
+        soundPanel.SetActive(false);
+
+        settingsPanel.SetActive(true);
+
+        // Cursor visible en settings
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     public void ResumeGame()
     {
-        isPaused = false;
-
-        if (pausePanel != null) pausePanel.SetActive(false);
-
-        Time.timeScale = 1f;
-        AudioListener.pause = false;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (isPaused)
+            TogglePause();
     }
 
-    public void QuitToMainMenu()
+    public void ExitGame()
     {
-
         Time.timeScale = 1f;
         AudioListener.pause = false;
-
-
         SceneManager.LoadScene("UI");
     }
-
-
 }
+
+
 

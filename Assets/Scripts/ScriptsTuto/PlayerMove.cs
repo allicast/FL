@@ -147,7 +147,9 @@ public class PlayerMove : MonoBehaviour
             isTurning = false;
     }
 
-    public void CameraLogic()
+    public LayerMask collisionLayer; // Añadir un nuevo LayerMask público para las paredes
+
+    void CameraLogic()
     {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
@@ -168,12 +170,14 @@ public class PlayerMove : MonoBehaviour
         Vector3 camDir = (theCamera.position - cameraAxis.position).normalized;
         float maxDist = Vector3.Distance(cameraAxis.position, cameraTrack.position);
 
+        // Asegurarte de que el SphereCast solo detecte las paredes y otros objetos relevantes
         if (Physics.SphereCast(
             cameraAxis.position,
             cameraCollisionRadius,
             camDir,
             out RaycastHit hit,
-            maxDist
+            maxDist,
+            collisionLayer // Usa el LayerMask aquí
         ))
         {
             theCamera.position = hit.point - camDir * cameraWallOffset;
@@ -221,7 +225,7 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(0.05f);
 
-        currentObject.OnInteract();
+        //currentObject.OnInteract();//
 
         yield return new WaitForSeconds(5.5f);
         isInteracting = false;
