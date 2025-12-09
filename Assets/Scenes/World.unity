@@ -208,6 +208,7 @@ Transform:
   m_PrefabInstance: {fileID: 40526972}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &43618964
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,6 +421,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130469268}
   m_Mesh: {fileID: 2314897689982761731, guid: c685f619160d8a440866da3b2287da48, type: 3}
+=======
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 =======
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1 &139433094
@@ -2336,6 +2339,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315391700}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
+=======
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1001 &334600728
 PrefabInstance:
@@ -2577,6 +2583,10 @@ RectTransform:
   m_Children:
   - {fileID: 1072947371}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  - {fileID: 1842424469}
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 =======
   - {fileID: 1842424469}
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
@@ -2645,7 +2655,11 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 3
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Spacing: -850
+=======
+  m_Spacing: -676.7
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 =======
   m_Spacing: -676.7
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
@@ -2657,7 +2671,10 @@ MonoBehaviour:
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1001 &357547907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2743,6 +2760,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 390965046}
   m_SourcePrefab: {fileID: 100100000, guid: 07dd162ff16531143b4af33ecc707afd, type: 3}
+<<<<<<< HEAD
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
+=======
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1 &382311807
 GameObject:
@@ -3504,7 +3524,10 @@ MeshCollider:
   m_CookingOptions: 30
   m_Mesh: {fileID: -3541629673168548286, guid: a316ef4aae902f04abb24fb914930378, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1 &472165235 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
@@ -4153,6 +4176,7 @@ CapsuleCollider:
   m_Direction: 1
   m_Center: {x: 0, y: 0.415918, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &717128762
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,6 +4285,8 @@ MeshFilter:
   m_Mesh: {fileID: 2314897689982761731, guid: c685f619160d8a440866da3b2287da48, type: 3}
 --- !u!1 &733529552
 =======
+=======
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1 &722287300
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 GameObject:
@@ -6186,6 +6212,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ae80b40ace499b1458b983d70945c16a, type: 3}
   m_PrefabInstance: {fileID: 1334314572}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
+=======
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1 &1064713402
 GameObject:
@@ -6444,7 +6473,11 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 199.91354, y: -480.28046}
+=======
+  m_AnchoredPosition: {x: 199.91354, y: -404.08698}
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 =======
   m_AnchoredPosition: {x: 199.91354, y: -404.08698}
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
@@ -7586,7 +7619,11 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 190.97, y: -592.93036}
+=======
+  m_AnchoredPosition: {x: 190.97, y: -669.12384}
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 =======
   m_AnchoredPosition: {x: 190.97, y: -669.12384}
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
@@ -7975,6 +8012,7 @@ MonoBehaviour:
   interactText: {fileID: 952101533}
   interactionDistance: 5
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1386810037
 GameObject:
   m_ObjectHideFlags: 0
@@ -8025,6 +8063,8 @@ AudioSource:
     - serializedVersion: 3
       time: 0
 =======
+=======
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1001 &1392695107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12408,6 +12448,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049881886}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+>>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
+=======
 >>>>>>> parent of 21274ae (funcion panel pausa con configuracion)
 --- !u!1 &2075960333 stripped
 GameObject:
