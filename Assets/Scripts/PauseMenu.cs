@@ -9,10 +9,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject crosshair;
     private bool isPaused = false;
 
-    public GameObject settingsPanel;
-    public GameObject controlsPanel;
-    public GameObject soundPanel;
-
     public ThirdPersonController playerController;
     public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
 
@@ -41,10 +37,6 @@ public class PauseMenu : MonoBehaviour
             foreach (var script in scriptsToFreeze)
                 if (script != null) script.enabled = false;
 
-            settingsPanel.SetActive(false);
-            controlsPanel.SetActive(false);
-            soundPanel.SetActive(false);
-
             // Pausar TODOS los sonidos
             AudioListener.pause = true;
 
@@ -71,69 +63,13 @@ public class PauseMenu : MonoBehaviour
             // Reanudar TODOS los sonidos
             AudioListener.pause = false;
 
-            // Ocultar cursor (lo que querías)
+            // Bloquear cursor
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             if (crosshair != null)
                 crosshair.SetActive(true);
-
-            pausePanel.SetActive(false);
-            settingsPanel.SetActive(false);
-            controlsPanel.SetActive(false);
-            soundPanel.SetActive(false);
         }
-    }
-
-    public void OpenControls()
-    {
-        pausePanel.SetActive(false);
-        settingsPanel.SetActive(false);
-
-        controlsPanel.SetActive(true);
-        soundPanel.SetActive(false);
-
-        // Cursor visible para este panel
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public void OpenSound()
-    {
-        pausePanel.SetActive(false);
-        settingsPanel.SetActive(false);
-
-        soundPanel.SetActive(true);
-        controlsPanel.SetActive(false);
-
-        // Cursor visible para este panel
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public void BackToPause()
-    {
-        pausePanel.SetActive(true);
-
-        settingsPanel.SetActive(false);
-        controlsPanel.SetActive(false);
-        soundPanel.SetActive(false);
-
-        // Cursor visible en el menú
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public void BackToSettings()
-    {
-        controlsPanel.SetActive(false);
-        soundPanel.SetActive(false);
-
-        settingsPanel.SetActive(true);
-
-        // Cursor visible en settings
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -145,10 +81,9 @@ public class PauseMenu : MonoBehaviour
     public void ExitGame()
     {
         Time.timeScale = 1f;
-        AudioListener.pause = false;
+        AudioListener.pause = false; // por seguridad
         SceneManager.LoadScene("UI");
     }
 }
-
 
 
