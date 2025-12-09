@@ -613,7 +613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiText: {fileID: 601106881}
   message: Por que no empiezas de una vez y acabamos con esto?
-  typingSpeed: 0.09
+  typingSpeed: 0.1
   typingSound: {fileID: 601106879}
   startDelay: 9
 --- !u!114 &601106881
@@ -638,8 +638,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 637cb66e6b1142047a09f80b0dd173ae, type: 2}
-  m_sharedMaterial: {fileID: 8741271509875720430, guid: 637cb66e6b1142047a09f80b0dd173ae, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8f74fb74627328409dab8fe81d4365a, type: 2}
+  m_sharedMaterial: {fileID: 5224159037395807847, guid: a8f74fb74627328409dab8fe81d4365a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiText: {fileID: 1358818640}
   message: Te estas divirtiendo?
-  typingSpeed: 0.08
+  typingSpeed: 0.11
   typingSound: {fileID: 1358818638}
   startDelay: 4.6
 --- !u!114 &1358818640
@@ -1505,8 +1505,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 637cb66e6b1142047a09f80b0dd173ae, type: 2}
-  m_sharedMaterial: {fileID: 8741271509875720430, guid: 637cb66e6b1142047a09f80b0dd173ae, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8f74fb74627328409dab8fe81d4365a, type: 2}
+  m_sharedMaterial: {fileID: 5224159037395807847, guid: a8f74fb74627328409dab8fe81d4365a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2303,8 +2303,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 637cb66e6b1142047a09f80b0dd173ae, type: 2}
-  m_sharedMaterial: {fileID: 8741271509875720430, guid: 637cb66e6b1142047a09f80b0dd173ae, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8f74fb74627328409dab8fe81d4365a, type: 2}
+  m_sharedMaterial: {fileID: 5224159037395807847, guid: a8f74fb74627328409dab8fe81d4365a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
