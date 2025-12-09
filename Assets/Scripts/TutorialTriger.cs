@@ -13,4 +13,3 @@ public class NPCInteractionTrigger : MonoBehaviour
         }
     }
 }
-

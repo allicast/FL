@@ -2,10 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using StarterAssets;
 
 public class PlayerMove : MonoBehaviour
 {
+    public StarterAssetsInputs _input;
+
+    // Variables de control para el Tutorial
+    [HideInInspector] public bool enabledControl = true;
+    [HideInInspector] public bool cameraEnabled = true;
+    public Transform playerCameraPivot;
+
+    // Estados internos
+    private bool hasPickedItem = false;
+    private bool hasCleaned = false;
+
     Transform playerTr;
     Rigidbody playerRb;
     Animator playerAnim;
@@ -28,14 +39,11 @@ public class PlayerMove : MonoBehaviour
     public float camRotSpeed = 700f;
     public float minAngle = -45f;
     public float maxAngle = 45f;
-    public float cameraSpeed = 700f;
 
     private bool isTurning = false;
     private float turnSpeed = 720f;
     private float targetAngle;
-    private float startAngle;
 
-    private bool isCrouching = false;
     private bool isInteracting = false;
 
     public float interactDistance = 3f;
@@ -45,30 +53,60 @@ public class PlayerMove : MonoBehaviour
 
     public static bool isInventoryOpen = false;
 
-    void Start()
+    // --- SOLUCIÓN: Usar solo Awake para la inicialización más temprana ---
+    void Awake()
     {
         playerTr = this.transform;
+
+        // Asignación de componentes con comprobación de error
         playerRb = GetComponent<Rigidbody>();
+        if (playerRb == null)
+            Debug.LogError("PlayerMove: ¡FALTA Rigidbody! Necesario para el movimiento.");
+
         playerAnim = GetComponentInChildren<Animator>();
-        theCamera = Camera.main.transform;
+        if (playerAnim == null)
+            Debug.LogError("PlayerMove: ¡FALTA Animator! Necesario para las animaciones.");
+
+        // Inicialización de la cámara (Camera.main puede ser nula en Awake si no está bien configurada, pero lo intentamos)
+        if (Camera.main != null)
+        {
+            theCamera = Camera.main.transform;
+        }
+        else
+        {
+            // Esto puede ser normal si la cámara se genera tarde
+            Debug.LogWarning("PlayerMove: Camera.main no está disponible en Awake. Se buscará más tarde.");
+        }
+
+        if (_input == null) _input = GetComponent<StarterAssetsInputs>();
+        if (playerCameraPivot == null) playerCameraPivot = cameraAxis;
 
         if (interactText != null)
             interactText.SetActive(false);
     }
+    
 
     void Update()
     {
+        
+        if (_input == null) return;
+
+        isInventoryOpen = _input.inventory;
+
         if (isInventoryOpen)
         {
-            playerRb.velocity = Vector3.zero;
-            playerAnim.SetFloat("X", 0);
-            playerAnim.SetFloat("Y", 0);
+            // PROTECCIÓN
+            if (playerRb != null) playerRb.velocity = Vector3.zero;
+            if (playerAnim != null)
+            {
+                playerAnim.SetFloat("X", 0);
+                playerAnim.SetFloat("Y", 0);
+            }
             return;
         }
 
         if (isInteracting) return;
 
-        CrouchLogic();
         DetectInteractable();
         HandleInteraction();
         MoveLogic();
@@ -77,39 +115,54 @@ public class PlayerMove : MonoBehaviour
         TurnLogic();
     }
 
-    void CrouchLogic()
-    {
-        isCrouching = Input.GetKey(KeyCode.LeftControl);
-        playerAnim.SetBool("isCrouching", isCrouching);
-    }
-
     public void AnimLogic()
     {
+        if (playerAnim == null || _input == null) return;
+
         playerAnim.SetFloat("X", newDirection.x);
         playerAnim.SetFloat("Y", newDirection.y);
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isRunning = _input.sprint;
         playerAnim.SetBool("isRunning", isRunning);
     }
 
     public void MoveLogic()
     {
-        if (isCrouching)
+       
+        if (_input == null)
         {
-            playerRb.velocity = Vector3.zero;
+            
             newDirection = Vector2.zero;
             return;
         }
 
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float moveX = _input.move.x;
+        float moveZ = _input.move.y;
 
+        
+        newDirection = new Vector2(moveX, moveZ);
+
+
+        
+        if (!enabledControl)
+        {
+            // Si el control está deshabilitado, forzamos la velocidad a cero.
+            if (playerRb != null) playerRb.velocity = Vector3.zero;
+            if (playerAnim != null)
+            {
+                playerAnim.SetFloat("X", 0);
+                playerAnim.SetFloat("Y", 0);
+            }
+            
+            return;
+        }
+
+       
         if (moveZ < 0) moveZ = 0;
 
         float theTime = Time.deltaTime;
-        newDirection = new Vector2(moveX, moveZ);
 
-        bool isTryingToRun = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool isTryingToRun = _input.sprint;
         bool isRunning = isTryingToRun && moveZ > 0 && !isTurning;
         float currentSpeed = isRunning ? playerSpeed * runSpeed : playerSpeed;
 
@@ -118,75 +171,77 @@ public class PlayerMove : MonoBehaviour
 
         if (!isTurning)
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                isTurning = true;
-                startAngle = playerTr.eulerAngles.y;
-                targetAngle = (startAngle + 180f) % 360f;
-            }
-            else
-            {
-                forward = currentSpeed * moveZ * theTime * playerTr.forward;
-            }
+            forward = currentSpeed * moveZ * theTime * playerTr.forward;
         }
 
         Vector3 endDirection = side + forward;
-        playerRb.velocity = endDirection;
+        if (playerRb != null) playerRb.velocity = endDirection;
     }
 
     void TurnLogic()
     {
         if (!isTurning) return;
-
         float currentY = playerTr.eulerAngles.y;
         float newY = Mathf.MoveTowardsAngle(currentY, targetAngle, turnSpeed * Time.deltaTime);
-
         playerTr.eulerAngles = new Vector3(playerTr.eulerAngles.x, newY, playerTr.eulerAngles.z);
-
-        if (Mathf.Approximately(newY, targetAngle))
-            isTurning = false;
+        if (Mathf.Approximately(newY, targetAngle)) isTurning = false;
     }
 
-    public LayerMask collisionLayer; // Añadir un nuevo LayerMask público para las paredes
+    public LayerMask collisionLayer;
 
     void CameraLogic()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        if (!cameraEnabled || _input == null || cameraAxis == null) return;
+
+        
+        if (theCamera == null && Camera.main != null)
+        {
+            theCamera = Camera.main.transform;
+        }
+        if (theCamera == null) return; 
+
+        float mouseX = _input.look.x;
+        float mouseY = _input.look.y;
+        float sensitivityMultiplier = 0.5f;
         float theTime = Time.deltaTime;
 
-        rotY += mouseY * theTime * camRotSpeed;
-        rotX = mouseX * theTime * camRotSpeed;
+        rotY += mouseY * theTime * camRotSpeed * sensitivityMultiplier;
+        rotX = mouseX * theTime * camRotSpeed * sensitivityMultiplier;
 
         playerTr.Rotate(0, rotX, 0);
 
         rotY = Mathf.Clamp(rotY, minAngle, maxAngle);
-        Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
-        cameraAxis.localRotation = localRotation;
+        cameraAxis.localRotation = Quaternion.Euler(-rotY, 0, 0);
 
-        theCamera.position = cameraTrack.position;
-        theCamera.rotation = cameraTrack.rotation;
-
-        Vector3 camDir = (theCamera.position - cameraAxis.position).normalized;
-        float maxDist = Vector3.Distance(cameraAxis.position, cameraTrack.position);
-
-        // Asegurarte de que el SphereCast solo detecte las paredes y otros objetos relevantes
-        if (Physics.SphereCast(
-            cameraAxis.position,
-            cameraCollisionRadius,
-            camDir,
-            out RaycastHit hit,
-            maxDist,
-            collisionLayer // Usa el LayerMask aquí
-        ))
+        if (cameraTrack != null)
         {
-            theCamera.position = hit.point - camDir * cameraWallOffset;
+            theCamera.position = cameraTrack.position;
+            theCamera.rotation = cameraTrack.rotation;
+
+            Vector3 camDir = (theCamera.position - cameraAxis.position).normalized;
+            float maxDist = Vector3.Distance(cameraAxis.position, cameraTrack.position);
+
+            if (Physics.SphereCast(cameraAxis.position, cameraCollisionRadius, camDir, out RaycastHit hit, maxDist, collisionLayer))
+            {
+                theCamera.position = hit.point - camDir * cameraWallOffset;
+            }
         }
     }
 
     void DetectInteractable()
     {
-        Ray ray = theCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        if (theCamera == null) return;
+
+        Vector3 mousePos = Vector3.zero;
+#if ENABLE_INPUT_SYSTEM
+        if (UnityEngine.InputSystem.Mouse.current != null)
+            mousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+        else return;
+#else
+        mousePos = Input.mousePosition;
+#endif
+
+        Ray ray = theCamera.GetComponent<Camera>().ScreenPointToRay(mousePos);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
@@ -195,39 +250,71 @@ public class PlayerMove : MonoBehaviour
             if (obj != null)
             {
                 currentObject = obj;
-                if (interactText != null)
-                    interactText.SetActive(true);
+                if (interactText != null) interactText.SetActive(true);
                 return;
             }
         }
 
         currentObject = null;
-        if (interactText != null)
-            interactText.SetActive(false);
+        if (interactText != null) interactText.SetActive(false);
     }
 
     void HandleInteraction()
     {
-        if (currentObject != null && Input.GetKeyDown(KeyCode.E))
+        if (_input == null || !_input.interact) return;
+
+        _input.interact = false;
+
+        if (currentObject != null)
         {
             StartCoroutine(InteractRoutine());
+        }
+        else
+        {
+            if (!hasCleaned)
+            {
+                // PROTECCIÓN
+                if (playerAnim != null) playerAnim.SetTrigger("Clean");
+                hasCleaned = true;
+            }
         }
     }
 
     IEnumerator InteractRoutine()
     {
         isInteracting = true;
-        playerRb.velocity = Vector3.zero;
-        playerAnim.SetTrigger("PickUp");
+        // PROTECCIÓN
+        if (playerRb != null) playerRb.velocity = Vector3.zero;
+        if (playerAnim != null) playerAnim.SetTrigger("PickUp");
 
-        if (interactText != null)
-            interactText.SetActive(false);
+        hasPickedItem = true;
+
+        if (interactText != null) interactText.SetActive(false);
 
         yield return new WaitForSeconds(0.05f);
-
-        //currentObject.OnInteract();//
-
-        yield return new WaitForSeconds(5.5f);
+        yield return new WaitForSeconds(2.0f);
         isInteracting = false;
+    }
+
+    
+   
+
+    public bool HasPickedSomething() { return hasPickedItem; }
+    public bool HasCleanedTable() { return hasCleaned; }
+
+    public void ResetMovementState()
+    {
+       
+
+        if (playerRb != null)
+        {
+            playerRb.velocity = Vector3.zero;
+        }
+
+        if (playerAnim != null)
+        {
+            playerAnim.SetFloat("X", 0);
+            playerAnim.SetFloat("Y", 0);
+        }
     }
 }

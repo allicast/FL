@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryPanel;
     public Transform itemsParent;
     public GameObject itemSlotPrefab;
-
+    public InputActionAsset defaultActions;
     [Header("Scripts que se congelarán")]
     public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
 
@@ -42,7 +43,7 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (defaultActions.FindAction("Inventory").WasPressedThisFrame())
         {
             bool newState = !inventoryPanel.activeSelf;
 

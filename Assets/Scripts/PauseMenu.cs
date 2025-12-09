@@ -1,5 +1,6 @@
 ﻿using StarterAssets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
@@ -15,10 +16,11 @@ public class PauseMenu : MonoBehaviour
 
     public ThirdPersonController playerController;
     public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
+    public InputActionAsset defaultActions;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !EnemyCinematic.isGameOver)
+        if (defaultActions.FindAction("Pause").WasPressedThisFrame() && !EnemyCinematic.isGameOver)
         {
             TogglePause();
         }

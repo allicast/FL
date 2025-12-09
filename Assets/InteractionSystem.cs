@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InteractionSystem : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class InteractionSystem : MonoBehaviour
             if (hit.collider.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
             {
                 interactText.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
+                if (new WaitUntil(() => defaultActions.FindAction("WaitUntil").triggered));
                 {
                     interactable.Interact();
                 }
