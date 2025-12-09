@@ -8,8 +8,8 @@ public class DoorController : BaseInteractable
 
     [Header("Sonidos")]
     public AudioSource audioSource;
-    public AudioClip soundOpen;
-    public AudioClip soundClose;
+    public AudioClip soundOpen;   // sonido cuando se abre
+    public AudioClip soundClose;  // sonido cuando se cierra
 
     private bool isOpen = false;
     private Quaternion closedRot;
@@ -33,12 +33,12 @@ public class DoorController : BaseInteractable
 
         if (audioSource == null) return;
 
-
+        // Si la puerta se está abriendo → sonido abrir
         if (isOpen && soundOpen != null)
         {
             audioSource.PlayOneShot(soundOpen);
         }
-
+        // Si la puerta se está cerrando → sonido cerrar
         else if (!isOpen && soundClose != null)
         {
             audioSource.PlayOneShot(soundClose);

@@ -15,19 +15,19 @@ public class InteractableObject : BaseInteractable
     {
         Debug.Log("Has recogido " + objectName);
 
-
+        // --- AGREGAR AL INVENTARIO ---
         if (InventoryManager.instance != null)
         {
             InventoryManager.instance.AddItem(objectImage, objectName, useText);
         }
 
-
+        // --- MOSTRAR PANEL DE OBJETO RECOGIDO ---
         if (UI_Interaccion.instance != null)
         {
             UI_Interaccion.instance.MostrarObjeto(objectImage, objectName, objectDescription);
         }
 
-
+        // --- DESAPARECER EL OBJETO DEL MUNDO ---
         gameObject.SetActive(false);
     }
 }

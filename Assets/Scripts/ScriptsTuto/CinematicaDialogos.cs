@@ -4,11 +4,11 @@ using System.Collections;
 
 public class CinematicaDialogos : MonoBehaviour
 {
-    public TextMeshProUGUI uiText;
-    public string message;
-    public float typingSpeed = 0.03f;
-    public AudioSource typingSound;
-    public float startDelay = 1f;
+    public TextMeshProUGUI uiText;       // Texto UI
+    public string message;               // Texto a escribir
+    public float typingSpeed = 0.03f;    // Velocidad entre letras
+    public AudioSource typingSound;      // Sonido tecla
+    public float startDelay = 1f;        // ⬅ Tiempo antes de comenzar (editable)
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class CinematicaDialogos : MonoBehaviour
 
     IEnumerator TypeRoutine()
     {
-
+        // Espera antes de empezar a escribir
         yield return new WaitForSeconds(startDelay);
 
         uiText.text = "";
@@ -32,7 +32,7 @@ public class CinematicaDialogos : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-
+        // Ocultar inmediatamente al terminar
         uiText.gameObject.SetActive(false);
     }
 }
