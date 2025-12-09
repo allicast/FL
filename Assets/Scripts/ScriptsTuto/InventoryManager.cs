@@ -51,17 +51,17 @@ public class InventoryManager : MonoBehaviour
 
             if (newState)
             {
-                // ❄ CONGELAR JUEGO
+
                 Time.timeScale = 0f;
 
-                // ❄ Congelar scripts
+
                 foreach (var script in scriptsToFreeze)
                     if (script != null) script.enabled = false;
 
-                // ❄ Congelar TODO el audio
+
                 AudioListener.pause = true;
 
-                // Mostrar cursor
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -70,17 +70,17 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                // ▶ REANUDAR JUEGO
+
                 Time.timeScale = 1f;
 
-                // ▶ Reactivar scripts
+
                 foreach (var script in scriptsToFreeze)
                     if (script != null) script.enabled = true;
 
-                // ▶ Reanudar el audio
+
                 AudioListener.pause = false;
 
-                // Ocultar cursor
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class CinematicaInicio : MonoBehaviour
 {
-    public float cinematicDuration; // tiempo total
+    public float cinematicDuration;
 
     void Start()
     {

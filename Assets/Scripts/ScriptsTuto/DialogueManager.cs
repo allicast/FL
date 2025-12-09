@@ -17,8 +17,8 @@ public class DialogueLine
     [TextArea(2, 5)]
     public string text;
 
-    public Sprite characterSprite;   // retrato del personaje
-    public Sprite frameSprite;       // marco decorativo
+    public Sprite characterSprite;
+    public Sprite frameSprite;
 
     public CharacterSide side;
 }
@@ -26,7 +26,7 @@ public class DialogueLine
 public class DialogueManager : MonoBehaviour
 {
     [Header("Panel del diálogo")]
-    public GameObject dialoguePanel;   // <<--- AGREGADO
+    public GameObject dialoguePanel;
 
     [Header("UI - Textos")]
     public TextMeshProUGUI leftNameText;
@@ -59,11 +59,11 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        // ACTIVAR PANEL AL INICIAR LA ESCENA
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(true);   // <<--- AGREGADO
 
-        // Ambos botones hacen lo mismo
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(true);
+
+
         if (nextButtonLeft != null)
             nextButtonLeft.onClick.AddListener(NextDialogue);
 
@@ -83,7 +83,7 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = lines[index];
 
-        // APAGAR todo
+
         leftCharacterImage.gameObject.SetActive(false);
         rightCharacterImage.gameObject.SetActive(false);
         leftFrameImage.gameObject.SetActive(false);
@@ -91,7 +91,7 @@ public class DialogueManager : MonoBehaviour
         leftNameText.gameObject.SetActive(false);
         rightNameText.gameObject.SetActive(false);
 
-        // IZQUIERDA
+
         if (line.side == CharacterSide.Left)
         {
             leftCharacterImage.sprite = line.characterSprite;
@@ -105,7 +105,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            // DERECHA
+
             rightCharacterImage.sprite = line.characterSprite;
             rightCharacterImage.gameObject.SetActive(true);
 
@@ -116,7 +116,7 @@ public class DialogueManager : MonoBehaviour
             rightNameText.gameObject.SetActive(true);
         }
 
-        // EFECTO MÁQUINA DE ESCRIBIR
+
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
@@ -139,7 +139,7 @@ public class DialogueManager : MonoBehaviour
 
             dialogText.text += c;
 
-            // SONIDO SIMPLE
+
             if (typeSound != null)
                 typeSound.Play();
 
