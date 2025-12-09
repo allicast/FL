@@ -1,44 +1,25 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EnemyCinematic : MonoBehaviour
 {
-    public static bool isGameOver = false; // 🔥 NUEVO
-
-    [Header("Cinemática")]
+    [Header("Cinem�tica")]
     public Transform cinematicPoint;
     public float cameraMoveSpeed = 3f;
     public float cinematicDuration = 2f;
     public bool lockPlayerControl = true;
 
-    [Header("Cámaras")]
-    public Camera playerCamera;
-    public Camera cinematicCamera;
-
-    [Header("Game Over")]
-    public GameObject gameOverPanel;
-    public AudioSource gameOverSound;
-
-    [Header("Jugador")]
-    public GameObject playerModel;
-
+    private Camera mainCam;
     private bool cinematicActive = false;
     private float cinematicTimer = 0f;
 
     private void Start()
     {
-        EnemyCinematic.isGameOver = false; // Reset al iniciar escena
-
-        if (cinematicCamera == null)
-            cinematicCamera = Camera.main;
+        mainCam = Camera.main;
 
         if (cinematicPoint == null)
-            Debug.LogWarning("EnemyCinematic: No se asignó el CinematicPoint en el inspector.");
-
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(false);
-
-        if (cinematicCamera != null)
-            cinematicCamera.gameObject.SetActive(false);
+        {
+            Debug.LogWarning("EnemyCinematic: No se asign� el CinematicPoint en el inspector.");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,71 +37,44 @@ public class EnemyCinematic : MonoBehaviour
         cinematicActive = true;
         cinematicTimer = 0f;
 
-        if (playerCamera != null)
-            playerCamera.gameObject.SetActive(false);
-
-        if (cinematicCamera != null)
-            cinematicCamera.gameObject.SetActive(true);
-
-        if (playerModel != null)
-            playerModel.SetActive(false);
 
         if (lockPlayerControl)
         {
             var controller = player.GetComponent<MonoBehaviour>();
+
             if (controller != null)
                 controller.enabled = false;
         }
 
+
         var enemyAI = GetComponent<EnemyAI>();
         if (enemyAI != null && enemyAI.agent != null)
+        {
             enemyAI.agent.ResetPath();
+        }
     }
 
     private void LateUpdate()
     {
-        if (!cinematicActive || cinematicCamera == null)
+        if (!cinematicActive || mainCam == null || cinematicPoint == null)
             return;
 
         cinematicTimer += Time.deltaTime;
 
-        cinematicCamera.transform.position = Vector3.Lerp(
-            cinematicCamera.transform.position,
+
+        mainCam.transform.position = Vector3.Lerp(
+            mainCam.transform.position,
             cinematicPoint.position,
             Time.deltaTime * cameraMoveSpeed
         );
 
-        cinematicCamera.transform.LookAt(transform.position + Vector3.up * 1.0f);
+        mainCam.transform.LookAt(transform.position + Vector3.up * 1.0f);
+
 
         if (cinematicTimer >= cinematicDuration)
         {
-            EndCinematic();
-        }
-    }
+            cinematicActive = false;
 
-    void EndCinematic()
-    {
-        cinematicActive = false;
-
-        // 🟥 Activar modo Game Over
-        isGameOver = true;
-
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        Time.timeScale = 0f;
-
-        AudioListener.volume = 0f;
-
-        if (gameOverSound != null)
-        {
-            gameOverSound.ignoreListenerVolume = true;
-            gameOverSound.Play();
         }
     }
 }
-
-
