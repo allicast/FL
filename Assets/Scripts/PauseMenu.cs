@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !EnemyCinematic.isGameOver)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
