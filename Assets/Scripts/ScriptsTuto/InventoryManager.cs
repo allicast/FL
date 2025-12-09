@@ -11,6 +11,9 @@ public class InventoryManager : MonoBehaviour
     public Transform itemsParent;
     public GameObject itemSlotPrefab;
 
+    [Header("Scripts que se congelarán")]
+    public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
+
     [Header("UI Adicional")]
     public GameObject crosshair;
 
@@ -48,7 +51,17 @@ public class InventoryManager : MonoBehaviour
 
             if (newState)
             {
+                // ❄ CONGELAR JUEGO
                 Time.timeScale = 0f;
+
+                // ❄ Congelar scripts
+                foreach (var script in scriptsToFreeze)
+                    if (script != null) script.enabled = false;
+
+                // ❄ Congelar TODO el audio
+                AudioListener.pause = true;
+
+                // Mostrar cursor
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -57,7 +70,17 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
+                // ▶ REANUDAR JUEGO
                 Time.timeScale = 1f;
+
+                // ▶ Reactivar scripts
+                foreach (var script in scriptsToFreeze)
+                    if (script != null) script.enabled = true;
+
+                // ▶ Reanudar el audio
+                AudioListener.pause = false;
+
+                // Ocultar cursor
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
@@ -77,9 +100,7 @@ public class InventoryManager : MonoBehaviour
     public void UpdateUI()
     {
         foreach (Transform child in itemsParent)
-        {
             Destroy(child.gameObject);
-        }
 
         foreach (var item in items)
         {
@@ -97,9 +118,7 @@ public class InventoryItem
 {
     public string name;
     public Sprite image;
-
-    [TextArea]
-    public string useText;
+    [TextArea] public string useText;
 
     public InventoryItem(string name, Sprite image, string useText)
     {

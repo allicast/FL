@@ -10,7 +10,8 @@ public class EnemySpawnTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            enemy.SetActive(true);   // ¡Aparece el enemigo!
+            enemy.SetActive(true);
+            Debug.Log("ENEMIGO ACTIVADO!");
         }
     }
 }

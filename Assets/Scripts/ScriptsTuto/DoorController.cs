@@ -1,19 +1,15 @@
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 
-public class DoorController : MonoBehaviour
+public class DoorController : BaseInteractable
 {
-    [Header("Configuraci�n")]
+    [Header("Configuración")]
     public float openAngle;
     public float speed = 2f;
 
-    [Header("Distancia para mostrar texto")]
-    public float detectionDistance;
-    public Transform player;
-
-    [Header("UI")]
-    public TextMeshProUGUI textOpen;
-    public TextMeshProUGUI textClose;
+    [Header("Sonidos")]
+    public AudioSource audioSource;
+    public AudioClip soundOpen;   // sonido cuando se abre
+    public AudioClip soundClose;  // sonido cuando se cierra
 
     private bool isOpen = false;
     private Quaternion closedRot;
@@ -23,38 +19,29 @@ public class DoorController : MonoBehaviour
     {
         closedRot = transform.rotation;
         openRot = Quaternion.Euler(transform.eulerAngles + new Vector3(0f, openAngle, 0f));
-
-        textOpen.gameObject.SetActive(false);
-        textClose.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        float dist = Vector3.Distance(player.position, transform.position);
-
-        if (dist <= detectionDistance)
-        {
-            if (isOpen)
-            {
-                textClose.gameObject.SetActive(true);
-                textOpen.gameObject.SetActive(false);
-            }
-            else
-            {
-                textOpen.gameObject.SetActive(true);
-                textClose.gameObject.SetActive(false);
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-                isOpen = !isOpen;
-        }
-        else
-        {
-            textOpen.gameObject.SetActive(false);
-            textClose.gameObject.SetActive(false);
-        }
-
         Quaternion target = isOpen ? openRot : closedRot;
         transform.rotation = Quaternion.Lerp(transform.rotation, target, Time.deltaTime * speed);
+    }
+
+    public override void Interact()
+    {
+        isOpen = !isOpen;
+
+        if (audioSource == null) return;
+
+        // Si la puerta se está abriendo → sonido abrir
+        if (isOpen && soundOpen != null)
+        {
+            audioSource.PlayOneShot(soundOpen);
+        }
+        // Si la puerta se está cerrando → sonido cerrar
+        else if (!isOpen && soundClose != null)
+        {
+            audioSource.PlayOneShot(soundClose);
+        }
     }
 }

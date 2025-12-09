@@ -1,62 +1,53 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-   
     Transform playerTr;
     Rigidbody playerRb;
     Animator playerAnim;
 
-    
-    public float playerSpeed = 3f;
+    public float playerSpeed;
     public float runSpeed = 2f;
-    [HideInInspector] public Vector2 newDirection;
+    [HideInInspector]
+    public Vector2 newDirection;
 
     public Transform cameraAxis;
     public Transform cameraTrack;
     private Transform theCamera;
-    public Transform playerCameraPivot;
-
 
     public float cameraCollisionRadius = 0.2f;
     public float cameraWallOffset = 0.1f;
+
+    private float rotY = 0f;
+    private float rotX = 0f;
 
     public float camRotSpeed = 700f;
     public float minAngle = -45f;
     public float maxAngle = 45f;
     public float cameraSpeed = 700f;
 
-    
-    public bool enabledControl = true;          
-    public static bool isInventoryOpen = false;  
-
-    
-    private float rotY = 0f;
-    private float rotX = 0f;
-
     private bool isTurning = false;
     private float turnSpeed = 720f;
     private float targetAngle;
     private float startAngle;
 
-    [HideInInspector] public bool cameraEnabled = true;
-    [HideInInspector] public bool isCrouching = false;
-
-    
+    private bool isCrouching = false;
     private bool isInteracting = false;
+
     public float interactDistance = 3f;
     public LayerMask interactLayer;
     public GameObject interactText;
     private InteractableObject currentObject = null;
 
-    
-    [HideInInspector] public bool hasPickedSomething = false;  
-    [HideInInspector] public bool cleanedTable = false;        
+    public static bool isInventoryOpen = false;
 
     void Start()
     {
-        playerTr = transform;
+        playerTr = this.transform;
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponentInChildren<Animator>();
         theCamera = Camera.main.transform;
@@ -64,45 +55,14 @@ public class PlayerMove : MonoBehaviour
         if (interactText != null)
             interactText.SetActive(false);
     }
-    public void ResetMovementState()
-    {
-        
-        newDirection = Vector2.zero;
-
-        
-        if (playerRb != null) playerRb.velocity = Vector3.zero;
-        if (playerAnim != null)
-        {
-            playerAnim.SetFloat("X", 0f);
-            playerAnim.SetFloat("Y", 0f);
-        }
-    }
 
     void Update()
     {
-
-        bool tempCamEnabled = cameraEnabled;
-
-        if (!enabledControl)
-        {
-            playerRb.velocity = Vector3.zero;
-            newDirection = Vector2.zero;
-            if (playerAnim != null)
-            {
-                playerAnim.SetFloat("X", 0);
-                playerAnim.SetFloat("Y", 0);
-            }
-            return;
-        }
-
         if (isInventoryOpen)
         {
             playerRb.velocity = Vector3.zero;
-            if (playerAnim != null)
-            {
-                playerAnim.SetFloat("X", 0);
-                playerAnim.SetFloat("Y", 0);
-            }
+            playerAnim.SetFloat("X", 0);
+            playerAnim.SetFloat("Y", 0);
             return;
         }
 
@@ -115,26 +75,16 @@ public class PlayerMove : MonoBehaviour
         CameraLogic();
         AnimLogic();
         TurnLogic();
-
-        
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            
-            cleanedTable = true;
-           
-            if (playerAnim != null) playerAnim.SetTrigger("Clean");
-        }
     }
 
     void CrouchLogic()
     {
-        isCrouching = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        if (playerAnim != null) playerAnim.SetBool("isCrouching", isCrouching);
+        isCrouching = Input.GetKey(KeyCode.LeftControl);
+        playerAnim.SetBool("isCrouching", isCrouching);
     }
 
     public void AnimLogic()
     {
-        if (playerAnim == null) return;
         playerAnim.SetFloat("X", newDirection.x);
         playerAnim.SetFloat("Y", newDirection.y);
 
@@ -197,12 +147,10 @@ public class PlayerMove : MonoBehaviour
             isTurning = false;
     }
 
-    
-    public void CameraLogic()
+    public LayerMask collisionLayer; // Añadir un nuevo LayerMask público para las paredes
+
+    void CameraLogic()
     {
-        
-        if (!cameraEnabled) return;
-        if (!enabledControl) return;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         float theTime = Time.deltaTime;
@@ -214,21 +162,22 @@ public class PlayerMove : MonoBehaviour
 
         rotY = Mathf.Clamp(rotY, minAngle, maxAngle);
         Quaternion localRotation = Quaternion.Euler(-rotY, 0, 0);
-        if (cameraAxis != null) cameraAxis.localRotation = localRotation;
+        cameraAxis.localRotation = localRotation;
 
-        if (theCamera == null) theCamera = Camera.main.transform;
         theCamera.position = cameraTrack.position;
         theCamera.rotation = cameraTrack.rotation;
 
         Vector3 camDir = (theCamera.position - cameraAxis.position).normalized;
         float maxDist = Vector3.Distance(cameraAxis.position, cameraTrack.position);
 
+        // Asegurarte de que el SphereCast solo detecte las paredes y otros objetos relevantes
         if (Physics.SphereCast(
             cameraAxis.position,
             cameraCollisionRadius,
             camDir,
             out RaycastHit hit,
-            maxDist
+            maxDist,
+            collisionLayer // Usa el LayerMask aquí
         ))
         {
             theCamera.position = hit.point - camDir * cameraWallOffset;
@@ -237,7 +186,6 @@ public class PlayerMove : MonoBehaviour
 
     void DetectInteractable()
     {
-        if (theCamera == null) theCamera = Camera.main.transform;
         Ray ray = theCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -247,13 +195,15 @@ public class PlayerMove : MonoBehaviour
             if (obj != null)
             {
                 currentObject = obj;
-                if (interactText != null) interactText.SetActive(true);
+                if (interactText != null)
+                    interactText.SetActive(true);
                 return;
             }
         }
 
         currentObject = null;
-        if (interactText != null) interactText.SetActive(false);
+        if (interactText != null)
+            interactText.SetActive(false);
     }
 
     void HandleInteraction()
@@ -268,42 +218,16 @@ public class PlayerMove : MonoBehaviour
     {
         isInteracting = true;
         playerRb.velocity = Vector3.zero;
-        if (playerAnim != null) playerAnim.SetTrigger("PickUp");
+        playerAnim.SetTrigger("PickUp");
 
-        if (interactText != null) interactText.SetActive(false);
+        if (interactText != null)
+            interactText.SetActive(false);
 
         yield return new WaitForSeconds(0.05f);
 
-        
-        if (currentObject != null)
-        {
-            currentObject.OnInteract();
+        //currentObject.OnInteract();//
 
-            
-            if (currentObject.gameObject.CompareTag("Pickup"))
-            {
-                hasPickedSomething = true;
-            }
-
-           
-            if (currentObject.gameObject.CompareTag("Table"))
-            {
-                cleanedTable = true;
-            }
-        }
-
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(5.5f);
         isInteracting = false;
     }
-
-    
-    public bool HasPickedSomething() { return hasPickedSomething; }
-    public bool HasCleanedTable() { return cleanedTable; }
-
-    public void ResetTutorialFlags()
-    {
-        hasPickedSomething = false;
-        cleanedTable = false;
-    }
 }
-
