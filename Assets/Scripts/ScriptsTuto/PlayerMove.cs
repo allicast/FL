@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class PlayerMove : MonoBehaviour
     public LayerMask interactLayer;
     public GameObject interactText;
     private InteractableObject currentObject = null;
+    PlayerInput playerInput;    
 
     public static bool isInventoryOpen = false;
 
@@ -84,7 +86,10 @@ public class PlayerMove : MonoBehaviour
         if (interactText != null)
             interactText.SetActive(false);
     }
-    
+    void Start()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
 
     void Update()
     {
@@ -261,7 +266,7 @@ public class PlayerMove : MonoBehaviour
 
     void HandleInteraction()
     {
-        if (_input == null || !_input.interact) return;
+        if (_input == null || !playerInput.actions["Interact"].triggered) return;
 
         _input.interact = false;
 
@@ -299,7 +304,15 @@ public class PlayerMove : MonoBehaviour
     
    
 
-    public bool HasPickedSomething() { return hasPickedItem; }
+    public bool HasPickedSomething()
+    {
+        Debug.Log("sirve " + hasPickedItem);
+    return hasPickedItem;
+    }
+
+    
+
+
     public bool HasCleanedTable() { return hasCleaned; }
 
     public void ResetMovementState()

@@ -2955,7 +2955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -577.8071, y: -2.3502197}
+  m_AnchoredPosition: {x: -577.8071, y: -2.3502808}
   m_SizeDelta: {x: -1152.55, y: -4.7003174}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &347797196
@@ -3289,7 +3289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.1501465, y: -3.9249268}
+  m_AnchoredPosition: {x: 3.1501465, y: -3.9249878}
   m_SizeDelta: {x: 50.402, y: 55.1525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &390965039 stripped
@@ -9073,6 +9073,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   interactText: {fileID: 975446115}
+  defaultActions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
 --- !u!4 &1434465668 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
@@ -11468,6 +11469,7 @@ MonoBehaviour:
   objetoDescripcion: {fileID: 1945306362}
   panelTextoUso: {fileID: 1094888352}
   textoUso: {fileID: 2101036402}
+  defaultActions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
 --- !u!114 &1726916007
 MonoBehaviour:
   m_ObjectHideFlags: 0

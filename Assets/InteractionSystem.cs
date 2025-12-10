@@ -7,6 +7,7 @@ public class InteractionSystem : MonoBehaviour
 {
     [SerializeField] LayerMask layers;
     [SerializeField] GameObject interactText;
+    public InputActionAsset defaultActions;
     private void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
@@ -16,7 +17,7 @@ public class InteractionSystem : MonoBehaviour
             if (hit.collider.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
             {
                 interactText.SetActive(true);
-                if (new WaitUntil(() => defaultActions.FindAction("WaitUntil").triggered));
+                if (defaultActions.FindAction("Interaction").WasPressedThisFrame())
                 {
                     interactable.Interact();
                 }

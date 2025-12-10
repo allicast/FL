@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
     public PlayerMove player;
     public CinemachineVirtualCamera playerCam, npcCam;
 
-    [Header("Configuración")]
+    [Header("Configuraciï¿½n")]
     public float camRotateSpeed = 3f;
 
     private bool tutorialActive = false;
@@ -38,8 +38,8 @@ public class TutorialManager : MonoBehaviour
     IEnumerator SecuenciaTutorial()
     {
         yield return StartCoroutine(EjecutarPaso(
-            "¡Hola! Muévete hacia adelante con W o las flechas para comenzar.",
-            0 // Paso 0: Se salta la verificación de movimiento
+            "ï¿½Hola! Muï¿½vete hacia adelante con W o las flechas para comenzar.",
+            0 // Paso 0: Se salta la verificaciï¿½n de movimiento
         ));
 
         yield return StartCoroutine(EjecutarPaso(
@@ -48,7 +48,7 @@ public class TutorialManager : MonoBehaviour
         ));
 
         yield return StartCoroutine(EjecutarPaso(
-            "Ahora limpia la mesa. Acércate y presiona 'E' de nuevo.",
+            "Ahora limpia la mesa. Acï¿½rcate y presiona 'E' de nuevo.",
             2
         ));
 
@@ -58,11 +58,11 @@ public class TutorialManager : MonoBehaviour
         ));
 
         yield return StartCoroutine(EjecutarPaso(
-            "Por último, puedes pausar el juego con ESC.",
+            "Por ï¿½ltimo, puedes pausar el juego con ESC.",
             4
         ));
 
-        tutorialText.text = "¡Tutorial Completado! Buena suerte.";
+        tutorialText.text = "ï¿½Tutorial Completado! Buena suerte.";
         yield return new WaitForSeconds(3f);
         tutorialText.text = "";
         tutorialActive = false;
@@ -70,66 +70,66 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator EjecutarPaso(string textoInstruccion, int pasoIndice)
     {
-        // 1. FASE DE EXPLICACIÓN (Bloqueamos todo)
+        
         player.enabledControl = false;
-        player.ResetMovementState(); // Detiene al jugador y la animación
+        player.ResetMovementState(); 
         player.cameraEnabled = false;
 
-        // 1A. CAMBIO DE CÁMARA (Usamos Corrutina para esperar el blend)
+        
         yield return StartCoroutine(MoverCamaraRoutine());
 
         tutorialText.text = textoInstruccion + "\n(Presiona R para continuar)";
 
-        // 1B. ESPERA DEL JUGADOR (Tu lógica de Input original para 'R')
+        
         yield return new WaitUntil(() => defaultActions.FindAction("WaitUntil").triggered);
 
         tutorialText.text = "";
 
-        // 1C. VOLVER A CÁMARA JUGADOR (Usamos Corrutina para esperar el blend)
+        
         yield return StartCoroutine(VolverCamaraJugadorRoutine());
 
-        // 2. FASE DE ACCIÓN (Habilitamos el control)
+        
         player.cameraEnabled = true;
-        player.enabledControl = true; // El control está habilitado para que el jugador pueda moverse después
+        player.enabledControl = true; 
 
         tutorialText.text = textoInstruccion;
 
         bool accionCompletada = false;
 
-        // >> LÓGICA CLAVE: SALTAR LA VERIFICACIÓN DE MOVIMIENTO (PASO 0) <<
+        
         if (pasoIndice == 0)
         {
-            accionCompletada = true; // Si es el primer paso, se considera completado al presionar 'R'
+            accionCompletada = true; 
         }
 
-        // 2B. BUCLE DE ACCIÓN (Solo se ejecuta si accionCompletada es false)
+        
         while (!accionCompletada)
         {
             switch (pasoIndice)
             {
-                // El Case 0 de movimiento se omite aquí debido a la línea de arriba.
-                case 1: // Recoger (E)
+        
+                case 1: 
                     if (player.HasPickedSomething()) accionCompletada = true;
                     break;
-                case 2: // Limpiar (E)
+                case 2: 
                     if (player.HasCleanedTable()) accionCompletada = true;
                     break;
-                case 3: // Inventario (TAB)
+                case 3: 
                     if (PlayerMove.isInventoryOpen) accionCompletada = true;
                     break;
-                case 4: // Pausa (ESC)
+                case 4: 
                     if (player._input != null && player._input.pause) accionCompletada = true;
                     break;
             }
             yield return null;
         }
 
-        // 3. PASO COMPLETADO
-        tutorialText.text = "¡Bien hecho!";
+        
+        tutorialText.text = "ï¿½Bien hecho!";
         yield return new WaitForSeconds(1f);
     }
 
-    // Corrutina para cambiar a cámara NPC y esperar el blend (Usando SetActive)
+    
     IEnumerator MoverCamaraRoutine()
     {
         if (playerCam != null) playerCam.gameObject.SetActive(false);
@@ -137,7 +137,6 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    // Corrutina para volver a cámara Jugador y esperar el blend (Usando SetActive)
     IEnumerator VolverCamaraJugadorRoutine()
     {
         if (playerCam != null) playerCam.gameObject.SetActive(true);
