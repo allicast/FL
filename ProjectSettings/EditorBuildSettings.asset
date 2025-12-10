@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UI.unity
     guid: 754488ce0e8927e4bae3167c925be7dc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cinematica.unity
     guid: dc97403cc70707a43b0772999a582bdd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DialogosInicio.unity
     guid: 3a7b2f6845ebd0d46acb8ab1d2c45c25
   - enabled: 1

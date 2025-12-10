@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (defaultActions.FindAction("Pause").WasPressedThisFrame() && !EnemyCinematic.isGameOver)
+        if (defaultActions.FindAction("Pause").WasPressedThisFrame())
         {
             TogglePause();
         }

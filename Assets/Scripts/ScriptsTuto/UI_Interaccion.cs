@@ -1,7 +1,7 @@
-﻿using UnityEngine.UI;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
+using UnityEngine.UI;
 
 public class UI_Interaccion : MonoBehaviour
 {
@@ -10,11 +10,12 @@ public class UI_Interaccion : MonoBehaviour
     public TMP_Text objetoNombre;
     public TMP_Text objetoDescripcion;
 
+    public InputActionAsset defaultActions;
+
     public static UI_Interaccion instance;
 
     public GameObject panelTextoUso;
     public Text textoUso;
-    public InputActionAsset defaultActions;
 
     void Awake()
     {
@@ -60,7 +61,7 @@ public class UI_Interaccion : MonoBehaviour
         {
             if (!RectTransformUtility.RectangleContainsScreenPoint(
                 panelTextoUso.GetComponent<RectTransform>(),
-                defaultActions.FindAction("Pointer").ReadValue<Vector2>(),
+                Input.mousePosition,
                 null))
             {
                 CerrarTextoUso();

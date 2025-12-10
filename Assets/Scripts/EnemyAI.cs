@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -23,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     public AudioSource tensionAudio;
 
     [Header("Audio Player (Ruido)")]
-    public float playerNoiseRadius = 8f;   // radio del ruido
+    public float playerNoiseRadius = 8f;   
     public bool playerIsMakingNoise = false;
 
     [Header("Animaciones")]
@@ -32,10 +31,6 @@ public class EnemyAI : MonoBehaviour
     private int currentPoint = 0;
     private bool chasing = false;
     private bool attacking = false;
-
-    [Header("Game Over")]
-    public GameObject gameOverPanel;
-    public float gameOverDelay = 1.0f;
 
     void Start()
     {
@@ -62,28 +57,23 @@ public class EnemyAI : MonoBehaviour
             HandleAI(distanceToPlayer);
     }
 
-    // -----------------------------------------------------------
-    // DETECCIÓN DE RUIDO DEL JUGADOR
-    // -----------------------------------------------------------
+   
     void HandlePlayerNoiseDetection()
     {
         if (!playerIsMakingNoise) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        // si el ruido entra en el radio, activar persecución
+        
         if (distance <= playerNoiseRadius)
         {
             chasing = true;
         }
     }
 
-    // -----------------------------------------------------------
-    // AUDIO DEL ENEMIGO (Corre, Camina, Grita y Música Tensa)
-    // -----------------------------------------------------------
     void HandleAudio(float distance)
     {
-        // Audio de caminar
+        
         if (!chasing && !attacking)
         {
             if (agent.velocity.magnitude > 0.1f)
@@ -97,14 +87,14 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        // Audio de correr
+       
         if (chasing && !attacking)
         {
             if (!runAudio.isPlaying) runAudio.Play();
             walkAudio.Stop();
         }
 
-        // Audio de tensión
+       
         if (!chasing)
         {
             if (tensionAudio.isPlaying)
@@ -125,9 +115,7 @@ public class EnemyAI : MonoBehaviour
         tensionAudio.volume = volume;
     }
 
-    // -----------------------------------------------------------
-    // LÓGICA DE IA
-    // -----------------------------------------------------------
+    
     void HandleAI(float distance)
     {
         if (chasing)
@@ -158,48 +146,22 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // -----------------------------------------------------------
-    // ATAQUE (Grito)
-    // -----------------------------------------------------------
+    
     System.Collections.IEnumerator AttackSequence()
     {
         attacking = true;
         agent.isStopped = true;
 
-        Vector3 direction = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); 
-
-        // Animación y Audio
         animator.SetTrigger("Scream");
-        screamAudio.Play();
+        screamAudio.Play();   
 
         yield return new WaitForSeconds(2f);
 
-
-        // 1. Ocultar el enemigo (opcional)
-        // gameObject.SetActive(false); 
-
-        yield return new WaitForSeconds(gameOverDelay);
-
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-
-        Time.timeScale = 0f;
+        agent.isStopped = false;
+        attacking = false;
     }
 
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    // -----------------------------------------------------------
-    // PATRULLA
-    // -----------------------------------------------------------
+    
     void PatrolBehaviour()
     {
         agent.speed = patrolSpeed;
@@ -221,9 +183,6 @@ public class EnemyAI : MonoBehaviour
         currentPoint = (currentPoint + 1) % patrolPoints.Length;
     }
 
-    // -----------------------------------------------------------
-    // ANIMACIONES
-    // -----------------------------------------------------------
     void SetAnimation(string state)
     {
         animator.SetBool("isWalking", state == "walk");
