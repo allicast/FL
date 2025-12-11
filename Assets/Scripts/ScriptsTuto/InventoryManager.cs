@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryPanel;
     public Transform itemsParent;
     public GameObject itemSlotPrefab;
+    public InputActionAsset defaultActions;
 
     [Header("Scripts que se congelarán")]
     public List<MonoBehaviour> scriptsToFreeze = new List<MonoBehaviour>();
@@ -42,7 +44,7 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (defaultActions.FindAction("Inventory").WasPressedThisFrame())
         {
             bool newState = !inventoryPanel.activeSelf;
 
@@ -51,17 +53,17 @@ public class InventoryManager : MonoBehaviour
 
             if (newState)
             {
-                // ❄ CONGELAR JUEGO
+
                 Time.timeScale = 0f;
 
-                // ❄ Congelar scripts
+
                 foreach (var script in scriptsToFreeze)
                     if (script != null) script.enabled = false;
 
-                // ❄ Congelar TODO el audio
+
                 AudioListener.pause = true;
 
-                // Mostrar cursor
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -70,17 +72,17 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                // ▶ REANUDAR JUEGO
+
                 Time.timeScale = 1f;
 
-                // ▶ Reactivar scripts
+
                 foreach (var script in scriptsToFreeze)
                     if (script != null) script.enabled = true;
 
-                // ▶ Reanudar el audio
+
                 AudioListener.pause = false;
 
-                // Ocultar cursor
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 

@@ -21,6 +21,7 @@ public class DeskPuzzle : BaseInteractable
 
     private bool isPuzzleActive = false;
     private float currentTime;
+    public bool activityIsCompleted;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class DeskPuzzle : BaseInteractable
         currentTime = timeLimit;
         progressBar.value = 0f;
         puzzlePanel.SetActive(true);
+        activityIsCompleted = false;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -74,6 +76,7 @@ public class DeskPuzzle : BaseInteractable
     void CompletePuzzle()
     {
         Debug.Log("Puzzle completado!");
+        activityIsCompleted = true;
 
         var interactScript = messyDesk.GetComponent<DeskInteract>();
         if (interactScript != null && interactScript.interactText != null)

@@ -10,8 +10,8 @@ public class MensajeInicio : MonoBehaviour
     public TMP_Text mensaje;
     public float tiempoVisible;
 
-    public float delayTexto1; // tiempo antes de aparecer
-    public float duracionTexto1; // tiempo visible
+    public float delayTexto1;
+    public float duracionTexto1;
 
     public float delayTexto2;
     public float duracionTexto2;
@@ -31,13 +31,13 @@ public class MensajeInicio : MonoBehaviour
 
     IEnumerator ControlarTextos()
     {
-        // TEXTO 1
+
         yield return new WaitForSeconds(delayTexto1);
         texto1.SetActive(true);
         yield return new WaitForSeconds(duracionTexto1);
         texto1.SetActive(false);
 
-        // TEXTO 2
+
         yield return new WaitForSeconds(delayTexto2 - (delayTexto1 + duracionTexto1));
         texto2.SetActive(true);
         yield return new WaitForSeconds(duracionTexto2);

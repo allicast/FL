@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using TMPro;
 
 public class UI_Interaccion : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class UI_Interaccion : MonoBehaviour
     public Image objetoImagen;
     public TMP_Text objetoNombre;
     public TMP_Text objetoDescripcion;
+
+    public InputActionAsset defaultActions;
 
     public static UI_Interaccion instance;
 
@@ -49,12 +52,12 @@ public class UI_Interaccion : MonoBehaviour
 
     void Update()
     {
-        if (panelObjeto.activeSelf && Input.GetMouseButtonDown(0))
+        if (panelObjeto.activeSelf && defaultActions.FindAction("ClickUp").WasPressedThisFrame())
         {
             OcultarObjeto();
         }
 
-        if (panelTextoUso.activeSelf && Input.GetMouseButtonDown(0))
+        if (panelTextoUso.activeSelf && defaultActions.FindAction("ClickUp").WasPressedThisFrame())
         {
             if (!RectTransformUtility.RectangleContainsScreenPoint(
                 panelTextoUso.GetComponent<RectTransform>(),
