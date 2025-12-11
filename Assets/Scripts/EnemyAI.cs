@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     public AudioSource tensionAudio;
 
     [Header("Audio Player (Ruido)")]
-    public float playerNoiseRadius = 8f;   // radio del ruido
+    public float playerNoiseRadius = 8f;   
     public bool playerIsMakingNoise = false;
 
     [Header("Animaciones")]
@@ -57,28 +57,23 @@ public class EnemyAI : MonoBehaviour
             HandleAI(distanceToPlayer);
     }
 
-    // -----------------------------------------------------------
-    // DETECCIÓN DE RUIDO DEL JUGADOR
-    // -----------------------------------------------------------
+   
     void HandlePlayerNoiseDetection()
     {
         if (!playerIsMakingNoise) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        // si el ruido entra en el radio, activar persecución
+        
         if (distance <= playerNoiseRadius)
         {
             chasing = true;
         }
     }
 
-    // -----------------------------------------------------------
-    // AUDIO DEL ENEMIGO (Corre, Camina, Grita y Música Tensa)
-    // -----------------------------------------------------------
     void HandleAudio(float distance)
     {
-        // Audio de caminar
+        
         if (!chasing && !attacking)
         {
             if (agent.velocity.magnitude > 0.1f)
@@ -92,14 +87,14 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        // Audio de correr
+       
         if (chasing && !attacking)
         {
             if (!runAudio.isPlaying) runAudio.Play();
             walkAudio.Stop();
         }
 
-        // Audio de tensión
+       
         if (!chasing)
         {
             if (tensionAudio.isPlaying)
@@ -120,9 +115,7 @@ public class EnemyAI : MonoBehaviour
         tensionAudio.volume = volume;
     }
 
-    // -----------------------------------------------------------
-    // LÓGICA DE IA
-    // -----------------------------------------------------------
+    
     void HandleAI(float distance)
     {
         if (chasing)
@@ -153,16 +146,14 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // -----------------------------------------------------------
-    // ATAQUE (Grito)
-    // -----------------------------------------------------------
+    
     System.Collections.IEnumerator AttackSequence()
     {
         attacking = true;
         agent.isStopped = true;
 
         animator.SetTrigger("Scream");
-        screamAudio.Play();   // 🔥 Sonido de grito
+        screamAudio.Play();   
 
         yield return new WaitForSeconds(2f);
 
@@ -170,9 +161,7 @@ public class EnemyAI : MonoBehaviour
         attacking = false;
     }
 
-    // -----------------------------------------------------------
-    // PATRULLA
-    // -----------------------------------------------------------
+    
     void PatrolBehaviour()
     {
         agent.speed = patrolSpeed;
@@ -194,9 +183,6 @@ public class EnemyAI : MonoBehaviour
         currentPoint = (currentPoint + 1) % patrolPoints.Length;
     }
 
-    // -----------------------------------------------------------
-    // ANIMACIONES
-    // -----------------------------------------------------------
     void SetAnimation(string state)
     {
         animator.SetBool("isWalking", state == "walk");
